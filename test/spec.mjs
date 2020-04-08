@@ -2,13 +2,10 @@ import { is } from '@magic/test'
 
 import magicLog from '@magic/log'
 
-import { log, init, lib, middleware } from '../src/index.mjs'
+import { log, lib, middleware } from '../src/index.mjs'
 
 export default [
   { fn: is.deep.equal(log, magicLog), info: 'log equals @magic/log' },
-  { fn: is.object(init), info: 'init is an object' },
-  { fn: is.fn(init.api), info: 'init.api is a function' },
-  { fn: is.fn(init.store), info: 'init.store is a function' },
 
   { fn: is.object(lib), info: 'lib is an object' },
   { fn: is.fn(lib.formatLog), info: 'lib.formatLog is a function' },
