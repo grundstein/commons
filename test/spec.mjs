@@ -1,9 +1,22 @@
 import { is } from '@magic/test'
 
-import defaultRunCluster, { run } from '../src/index.mjs'
+import magicLog from '@magic/log'
+
+import { log, init, lib, middleware } from '../src/index.mjs'
 
 export default [
-  { fn: () => run, expect: is.fn, info: 'runCluster is a function' },
-  { fn: () => defaultRunCluster, expect: is.fn, info: 'runCluster default export is a function' },
-  { fn: is.deep.eq(run, defaultRunCluster), info: 'runCluster exports are equal' },
+  { fn: is.deep.equal(log, magicLog), info: 'log equals @magic/log' },
+  { fn: is.object(init), info: 'init is an object' },
+  { fn: is.fn(init.api), info: 'init.api is a function' },
+  { fn: is.fn(init.store), info: 'init.store is a function' },
+
+  { fn: is.object(lib), info: 'lib is an object' },
+  { fn: is.fn(lib.formatLog), info: 'lib.formatLog is a function' },
+  { fn: is.fn(lib.getFileEncoding), info: 'lib.getFileEncoding is a function' },
+  { fn: is.fn(lib.getRandomId), info: 'lib.getRandomId is a function' },
+  { fn: is.fn(lib.respond), info: 'lib.respond is a function' },
+  { fn: is.fn(lib.sendFile), info: 'lib.sendFile is a function' },
+
+  { fn: is.object(middleware), info: 'middleware is an object' },
+  { fn: is.fn(middleware.body), info: 'middleware.body is a function' },
 ]
