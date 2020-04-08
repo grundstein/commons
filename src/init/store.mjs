@@ -18,3 +18,5 @@ export const initStore = async (dir, fileStore = defaultStore) => {
 
   return store
 }
+
+export default initStore

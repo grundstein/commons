@@ -46,3 +46,5 @@ export const initApi = async dir => {
 
   return api
 }
+
+export default initApi
