@@ -1,43 +1,33 @@
 {
-  "name": "@grundstein/server",
+  "name": "@grundstein/commons",
   "version": "0.0.1-alpha.0",
   "author": "Wizards & Witches",
-  "homepage": "https://grundstein.github.io/server",
+  "homepage": "https://docs.grundstein.it/commons",
   "license": "AGPL-3.0",
-  "description": "NOT YET BENCHMARKED OR IN PRODUCTION! @grundstein/server. serves static webapps and their apis. caches what it can.",
+  "description": "NOT YET BENCHMARKED OR IN PRODUCTION! @grundstein/commons. shared library functionality, server middleware, lib and init functions.",
   "main": "src/index.mjs",
   "engines": {
     "node": ">=13.5.0"
   },
   "engineStrict": true,
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm test",
     "test": "t",
-    "format": "f -w",
-    "dev": "src/bin.mjs serve"
-  },
-  "bin": {
-    "grundstein-server": "src/bin.mjs",
-    "gs-server": "src/bin.mjs"
+    "format": "f -w"
   },
   "files": [
     "src"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/grundstein/server.git"
+    "url": "git+https://github.com/grundstein/commons.git"
   },
   "bugs": {
-    "url": "https://github.com/grundstein/server/issues"
+    "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
     "@grundstein/file-store": "github:grundstein/file-store",
-    "@magic/cli": "0.0.23",
-    "@magic/deep": "0.1.2",
-    "@magic/fs": "0.0.5",
-    "@magic/log": "0.1.4",
-    "@magic/mime-types": "0.0.2",
-    "@magic/types": "0.1.11"
+    "@magic/log": "0.1.4"
   },
   "devDependencies": {
     "@magic/format": "0.0.7",
