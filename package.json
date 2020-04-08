@@ -26,7 +26,6 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@grundstein/file-store": "github:grundstein/file-store",
     "@magic/log": "0.1.4"
   },
   "devDependencies": {
