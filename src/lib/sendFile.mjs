@@ -1,16 +1,10 @@
-import { log } from '../log.mjs'
 import { getFileEncoding } from './getFileEncoding.mjs'
 import { respond } from './respond.mjs'
 
-export const sendFile = (req, res, file) => {
+export const sendFile = (req, res, { file, code = 200, type = 'sendFile' }) => {
   const encoding = getFileEncoding(file, req.headers['accept-encoding'])
-  const body = file[encoding] || file.buffer
 
-  if (!body) {
-    log.error('E_NO_CONTENT', { url: req.url, code: 404 })
-    respond(req, { code: 404, body: '404 - not found.' })
-    return
-  }
+  const body = file[encoding] || file.buffer
 
   const headers = {
     'Content-Type': file.mime,
@@ -18,5 +12,5 @@ export const sendFile = (req, res, file) => {
     'Content-Encoding': encoding,
   }
 
-  return respond(res, { code: 200, headers, body })
+  return respond(res, { code, headers, body })
 }
