@@ -16,7 +16,9 @@
     "format": "f -w"
   },
   "files": [
-    "src"
+    "src",
+    "lib.mjs",
+    "middleware.mjs"
   ],
   "repository": {
     "type": "git",
