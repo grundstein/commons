@@ -1,5 +1,6 @@
 import { log } from '../log.mjs'
 import { getFileEncoding } from './getFileEncoding.mjs'
+import { respond } from './respond.mjs'
 
 export const sendFile = (req, res, file) => {
   const encoding = getFileEncoding(file, req.headers['accept-encoding'])
