@@ -12,5 +12,5 @@ export const sendFile = (req, res, { file, code = 200, type = 'sendFile' }) => {
     'Content-Encoding': encoding,
   }
 
-  return respond(res, { code, headers, body })
+  return respond(req, res, { code, headers, body })
 }
