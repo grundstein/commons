@@ -4,7 +4,7 @@ import log from '@magic/log'
 
 export const getRandomId = () =>
   new Promise((resolve, reject) =>
-    crypto.randomBytes(48, (err, buffer) => {
+    crypto.randomBytes(12, (err, buffer) => {
       // something went wrong with /dev/urandom.
       // lets generate a simple numeric id.
       // this has a higher risk of id clashes in our logs,
