@@ -13,7 +13,7 @@ export const sendFile = (req, res, file) => {
 
   const headers = {
     'Content-Type': file.mime,
-    'Content-Length': Buffer.byteLength(fileContent),
+    'Content-Length': Buffer.byteLength(body),
     'Content-Encoding': encoding,
   }
 
