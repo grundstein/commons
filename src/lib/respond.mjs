@@ -1,4 +1,9 @@
+import { log } from '../log.mjs'
+import { formatLog } from './formatLog.mjs'
+
 export const respond = (res, payload = {}) => {
+  const startTime = log.hrtime()
+
   const { code = 500, body = '500 - Server Error', headers } = payload
 
   const head = {
@@ -10,4 +15,6 @@ export const respond = (res, payload = {}) => {
 
   res.writeHead(code, head)
   res.end(body)
+
+  formatLog(req, res, { time: startTime, type: 'response' })
 }
