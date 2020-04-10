@@ -1,3 +1,7 @@
+// this middleware expects small chunks of data.
+// it loads the full request body into ram before returning.
+// request body size limits should be set in this middleware in the future.
+
 export const body = req =>
   new Promise((resolve, reject) => {
     try {
