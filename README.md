@@ -1,31 +1,25 @@
-## @grundstein/server
+## @grundstein/commons
 
-### WIP. NOT IN PRODUCTION YET!
+### WIP. NOT IN PRODUCTION, TESTED AND/OR BENCHMARKED YET!
 
-serves a local directory (process.cwd() + 'public' is the default)
+### features:
 
-it is recommended to install [@grundstein/cli](https://github.com/grundstein/cli/) instead,
-which includes both this package,
-as well as [@grundstein/builder](https://github.com/grundstein/builder)
-in one cli.
-
+this is the commonly shared codebase for all [grundstein](https://grundstein.it) servers.
 
 #### installation
-```bash
-npm i @grundstein/server
+
+```
+# not published yet, hence no @ before grundstein.
+# this makes npm load the library from git.
+npm i --save-exact grundstein/commons
 ```
 
 #### usage
-```bash
-// show full help
-grundstein-server --help
 
-// serve the ./public directory
-grundstein-server
+more info soon.
 
-// serve specific directories
-grundstein-server --dir local/directory/path /global/directory/path
+```
+import commons from '@grundstein/commons'
 
-// serve on specific port
-grundstein-server --port 2323
+commons.log.info('commons are usable now.')
 ```
