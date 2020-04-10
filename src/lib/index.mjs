@@ -1,5 +1,6 @@
 export { enhanceRequest } from './enhanceRequest.mjs'
 export { getFileEncoding } from './getFileEncoding.mjs'
+export { getHostname } from './getHostname.mjs'
 export { getRandomId } from './getRandomId.mjs'
 export { isSendableFile } from './isSendableFile.mjs'
 export { formatLog } from './formatLog.mjs'
