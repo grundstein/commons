@@ -8,9 +8,8 @@ export const sendFile = (req, res, { file, code = 200, type = 'sendFile' }) => {
 
   const headers = {
     'Content-Type': file.mime,
-    'Content-Length': Buffer.byteLength(body),
     'Content-Encoding': encoding,
   }
 
-  return respond(req, res, { code, headers, body })
+  return respond(req, res, { code, headers, body, type })
 }
