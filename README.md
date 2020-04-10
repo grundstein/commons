@@ -21,5 +21,8 @@ more info soon.
 ```
 import commons from '@grundstein/commons'
 
+import lib from '@grundstein/commons/lib.mjs'
+import middleware from '@grundstein/commons/middleware.mjs'
+
 commons.log.info('commons are usable now.')
 ```
