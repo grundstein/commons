@@ -1,6 +1,6 @@
 import { log } from '../log.mjs'
 
-export const formatLog = (req, res, time, type = 'request') => {
+export const formatLog = (req, res, { time, type = 'request' }) => {
   const { statusCode } = res
   const { url, id } = req
 
@@ -55,17 +55,15 @@ export const formatLog = (req, res, time, type = 'request') => {
   const dayString = `${year}/${month}/${day}`
   const timeString = `${hour}:${minute}:${second}:${millisecond}`
 
-  let response = [
-    '{',
-    `"code":"${statusCode}",`,
-    `"day":"${dayString}",`,
-    `"time":"${timeString}",`,
-    `"duration":"${duration}",`,
-    `"type":"${type}",`,
-    `"id": "${id}",`,
-    `"path":"${url}"`, // last item, no comma in string.
-    '}',
-  ]
+  let response = `{
+  "code":"${statusCode}",
+  "day":"${dayString}",
+  "time":"${timeString}",
+  "duration":"${duration}",
+  "type":"${type}",
+  "id": "${id}",
+  "path":"${url}"
+}`
 
-  log(response.join(''))
+  log(response)
 }
