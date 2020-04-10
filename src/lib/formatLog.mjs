@@ -55,15 +55,17 @@ export const formatLog = (req, res, { time, type = 'request' }) => {
   const dayString = `${year}/${month}/${day}`
   const timeString = `${hour}:${minute}:${second}:${millisecond}`
 
-  let response = `{
-  "code":"${statusCode}",
-  "day":"${dayString}",
-  "time":"${timeString}",
-  "duration":"${duration}",
-  "type":"${type}",
-  "id": "${id}",
-  "path":"${url}"
-}`
+  const response = [
+    '{',
+    '"code": "', statusCode, '", ',
+    '"day": "', dayString, '", ',
+    '"time": "', timeString, '", ',
+    '"duration": "', duration, '", ',
+    '"type": "', type, '", ',
+    '"id": "', id, '", ',
+    '"path": "', url, '" ',
+    '}',
+  ].join('')
 
   log(response)
 }
