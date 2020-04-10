@@ -1,24 +1,21 @@
-import log from '@magic/log'
-
+import { log } from '../log.mjs'
 import { getFileEncoding } from './getFileEncoding.mjs'
 
 export const sendFile = (req, res, file) => {
   const encoding = getFileEncoding(file, req.headers['accept-encoding'])
-  const fileContent = file[encoding]
+  const body = file[encoding] || file.buffer
 
-  if (!fileContent) {
-    res.writeHead(404)
-    res.end('404 - not found.')
-
-    log.error('NO CONTENT', { url: req.url, code: 404 })
+  if (!body) {
+    log.error('E_NO_CONTENT', { url: req.url, code: 404 })
+    respond(req, { code: 404, body: '404 - not found.' })
     return
   }
 
-  res.writeHead(200, {
+  const headers = {
     'Content-Type': file.mime,
     'Content-Length': Buffer.byteLength(fileContent),
     'Content-Encoding': encoding,
-  })
+  }
 
-  res.end(fileContent)
+  return respond(res, { code: 200, headers, body })
 }
