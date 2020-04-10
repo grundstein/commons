@@ -1,6 +1,8 @@
+import { log } from '../log.mjs'
+
 export const formatLog = (req, res, time, type = 'request') => {
   const { statusCode } = res
-  const { url } = req
+  const { url, id } = req
 
   const [s, ns] = process.hrtime(time)
   let span = s * 1000000 + ns / 1000
@@ -60,9 +62,10 @@ export const formatLog = (req, res, time, type = 'request') => {
     `"time":"${timeString}",`,
     `"duration":"${duration}",`,
     `"type":"${type}",`,
+    `"id": "${id}",`,
     `"path":"${url}"`, // last item, no comma in string.
     '}',
   ]
 
-  console.log(response.join(''))
+  log(response.join(''))
 }
