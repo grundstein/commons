@@ -28,7 +28,8 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@magic/log": "0.1.4"
+    "@magic/log": "0.1.4",
+    "@magic/types": "0.1.11"
   },
   "devDependencies": {
     "@magic/format": "0.0.8",
