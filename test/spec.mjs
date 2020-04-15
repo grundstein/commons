@@ -1,8 +1,10 @@
 import { is } from '@magic/test'
 
+import types from '@magic/types'
+
 import magicLog from '@magic/log'
 
-import { log, lib, middleware } from '../src/index.mjs'
+import { log, lib, middleware, is as libIs } from '../src/index.mjs'
 
 import exportedLib from '../lib.mjs'
 import exportedMiddleware from '../middleware.mjs'
@@ -22,4 +24,6 @@ export default [
 
   { fn: is.deep.equal(exportedLib, lib), info: 'exported libs are equal' },
   { fn: is.deep.equal(exportedMiddleware, middleware), info: 'exported middlewares are equal' },
+
+  { fn: is.deep.equal(libIs, types), info: '@magic/types and this library export the same default' },
 ]
