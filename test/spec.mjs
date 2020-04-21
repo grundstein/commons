@@ -6,8 +6,8 @@ import magicLog from '@magic/log'
 
 import { log, lib, middleware, is as libIs } from '../src/index.mjs'
 
-import exportedLib from '../lib.mjs'
-import exportedMiddleware from '../middleware.mjs'
+import * as exportedLib from '../lib.mjs'
+import * as exportedMiddleware from '../middleware.mjs'
 
 export default [
   { fn: is.deep.equal(log, magicLog), info: 'log equals @magic/log' },
