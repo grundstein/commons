@@ -1,1 +1,1 @@
-export * as default from './src/middleware/index.mjs'
+export * from './src/middleware/index.mjs'
