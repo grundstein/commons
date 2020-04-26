@@ -25,5 +25,8 @@ export default [
   { fn: is.deep.equal(exportedLib, lib), info: 'exported libs are equal' },
   { fn: is.deep.equal(exportedMiddleware, middleware), info: 'exported middlewares are equal' },
 
-  { fn: is.deep.equal(libIs, types), info: '@magic/types and this library export the same default' },
+  {
+    fn: is.deep.equal(libIs, types),
+    info: '@magic/types and this library export the same default',
+  },
 ]
