@@ -25,7 +25,7 @@ const prepareServer = async (args, handler) => {
     }
   }
 
-  const server = connector.createServer(options, handler(config))
+  const server = connector.createServer(options, handler)
 
   return server
 }
