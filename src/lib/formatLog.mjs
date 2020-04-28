@@ -2,7 +2,7 @@ import { log } from '../log.mjs'
 
 export const formatLog = (req, res, { time, type = 'request' }) => {
   const { statusCode } = res
-  const { url, id } = req
+  const { url } = req
 
   const [s, ns] = process.hrtime(time)
   let span = s * 1000000 + ns / 1000
@@ -71,9 +71,6 @@ export const formatLog = (req, res, { time, type = 'request' }) => {
     '", ',
     '"type": "',
     type,
-    '", ',
-    '"id": "',
-    id,
     '", ',
     '"path": "',
     url,
