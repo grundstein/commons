@@ -5,10 +5,12 @@ import https from 'https'
 
 import { fs, middleware } from '../index.mjs'
 
-export const createServer = async (args, handler) => {
+export const createServer = async (config, handler) => {
   let connector = http
 
   const options = {}
+
+  const { args, startTime } = config
 
   const { certDir, host, port } = args
 
