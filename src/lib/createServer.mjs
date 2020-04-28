@@ -3,7 +3,8 @@ import path from 'path'
 import http from 'http'
 import https from 'https'
 
-import { fs, middleware } from '../index.mjs'
+import fs from '@magic/fs'
+import * as middleware from '../../middleware.mjs'
 
 export const createServer = async (config, handler) => {
   let connector = http
