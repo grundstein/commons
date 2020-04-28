@@ -3,9 +3,9 @@ import path from 'path'
 import http from 'http'
 import https from 'https'
 
-import { fs } from '../index.mjs'
+import { fs, middleware } from '../index.mjs'
 
-const prepareServer = async (args, handler) => {
+const createServer = async (args, handler) => {
   let connector = http
 
   const options = {}
@@ -26,6 +26,9 @@ const prepareServer = async (args, handler) => {
   }
 
   const server = connector.createServer(options, handler)
+
+  const listener = middleware.listener({ host, port, startTime })
+  server.listen(port, host, listener)
 
   return server
 }
