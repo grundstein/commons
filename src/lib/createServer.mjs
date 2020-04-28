@@ -27,6 +27,9 @@ export const createServer = async (config, handler) => {
 
   const server = connector.createServer(options, handler)
 
+  const clientError = middleware.clientError(config)
+  server.on('clientError', clientError)
+
   const listener = middleware.listener({ host, port, startTime })
   server.listen(port, host, listener)
 
