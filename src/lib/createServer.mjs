@@ -7,22 +7,24 @@ import fs from '@magic/fs'
 import * as middleware from '../../middleware.mjs'
 
 export const createServer = async (config, handler) => {
-  let connector = http
+  const { args, certDir, host, port, startTime } = config
 
   const options = {}
 
-  const { args, certDir, host, port, startTime } = config
+  let connector = http
 
-  const privCertFile = path.join(certDir, 'priv.pem')
-  const pubCertFile = path.join(certDir, 'pub.pem')
+  if (certDir) {
+    const privCertFile = path.join(certDir, 'priv.pem')
+    const pubCertFile = path.join(certDir, 'pub.pem')
 
-  try {
-    options.key = await fs.readFile(privCertFile)
-    options.cert = await fs.readFile(pubCertFile)
-    connector = https
-  } catch(e) {
-    if (e.code !== 'ENOENT') {
-      throw e
+    try {
+      options.key = await fs.readFile(privCertFile)
+      options.cert = await fs.readFile(pubCertFile)
+      connector = https
+    } catch(e) {
+      if (e.code !== 'ENOENT') {
+        throw e
+      }
     }
   }
 
