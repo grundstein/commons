@@ -10,9 +10,7 @@ export const createServer = async (config, handler) => {
 
   const options = {}
 
-  const { args, startTime } = config
-
-  const { certDir, host, port } = args
+  const { args, certDir, host, port, startTime } = config
 
   const privCertFile = path.join(certDir, 'priv.pem')
   const pubCertFile = path.join(certDir, 'pub.pem')
