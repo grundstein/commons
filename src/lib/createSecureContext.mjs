@@ -3,7 +3,7 @@ import tls from 'tls'
 
 import fs from '@magic/fs'
 
-const getDomainContext = certDir => async domain => {
+const getDomainContext = (ctx, certDir) => async domain => {
   if (domain === certDir) {
     return false
   }
@@ -21,7 +21,7 @@ const getDomainContext = certDir => async domain => {
     cert,
   })
 
-  secureContext[name] = context
+  ctx[name] = context
 }
 
 export const createSecureContext = async certDir => {
@@ -29,7 +29,7 @@ export const createSecureContext = async certDir => {
 
   const availableCertificates = await fs.getDirectories(certDir)
 
-  await Promise.all(availableCertificates.map(getDomainContext(certDir)))
+  await Promise.all(availableCertificates.map(getDomainContext(secureContext, certDir)))
 
   return secureContext
 }
