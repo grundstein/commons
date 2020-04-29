@@ -1,33 +1,10 @@
-import path from 'path'
-import tls from 'tls'
-
 import http from 'http'
 import https from 'https'
 
 import fs from '@magic/fs'
 import * as middleware from '../../middleware.mjs'
 
-const getSecureContext = async (domain, certDir) => {
-  if (domain === certDir) {
-    return false
-  }
-
-  const name = domain.split('/').pop()
-
-  const keyFile = path.join(domain, 'privkey.pem')
-  const key = await fs.readFile(keyFile)
-
-  const chainFile = path.join(domain, 'fullchain.pem')
-  const cert = await fs.readFile(chainFile)
-
-  return [
-    name,
-    tls.createSecureContext({
-      key,
-      cert,
-    }).context
-  ]
-}
+import { createSecureContext } from './createSecureContext.mjs'
 
 export const createServer = async (config, handler) => {
   const { args, certDir, host, port, startTime } = config
@@ -38,16 +15,15 @@ export const createServer = async (config, handler) => {
 
   if (certDir) {
     try {
-      const availableCertificates = await fs.getDirectories(certDir)
+      const secureContext = await createSecureContext(certDir)
 
-      const domainList = await Promise.all(availableCertificates.map(async d => await getSecureContext(d, certDir)))
-
-      const secureContext = Object.fromEntries(domainList.filter(a => a))
-
-      options.SNICallback = (domain, cb) => cb(null, secureContext[domain])
+      options.SNICallback = (domain, cb) => {
+        const apex = domain.split('.').slice(-2).join('.')
+        cb(null, secureContext[apex])
+      }
 
       connector = https
-    } catch(e) {
+    } catch (e) {
       if (e.code === 'ENOENT') {
         log.error(e)
       } else {
