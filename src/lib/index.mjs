@@ -1,4 +1,5 @@
 export { createServer } from './createServer.mjs'
+export { createSecureContext } from './createSecureContext.mjs'
 export { enhanceRequest } from './enhanceRequest.mjs'
 export { getFileEncoding } from './getFileEncoding.mjs'
 export { getHostCertificates } from './getHostCertificates.mjs'
