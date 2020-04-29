@@ -6,6 +6,15 @@ import https from 'https'
 import fs from '@magic/fs'
 import * as middleware from '../../middleware.mjs'
 
+const getSecureContext = certDir => async domain => [
+  domain,
+  crypto.createCredentials({
+    key: await fs.readFile(path.join(certDir, domain, 'privkey.pem')),
+    cert: await fs.readFile(path.join(certDir, domain, 'fullchain.pem')),
+  }).context
+]
+
+
 export const createServer = async (config, handler) => {
   const { args, certDir, host, port, startTime } = config
 
@@ -14,12 +23,20 @@ export const createServer = async (config, handler) => {
   let connector = http
 
   if (certDir) {
-    const privCertFile = path.join(certDir, 'priv.pem')
-    const pubCertFile = path.join(certDir, 'pub.pem')
+    // const privCertFile = path.join(certDir, 'privkey.pem')
+    // const pubCertFile = path.join(certDir, 'fullchain.pem')
 
     try {
-      options.key = await fs.readFile(privCertFile)
-      options.cert = await fs.readFile(pubCertFile)
+      const availableCertificates = await fs.getDirectories(certDir)
+
+      const domainList = await Promise.all(availableCertificates.map(getSecureContext(certDir)))
+
+      const secureContext = Object.fromEntries(domainList)
+
+      options.SNICallback = domain => secureContext[domain]
+
+      // options.key = await fs.readFile(privCertFile)
+      // options.cert = await fs.readFile(pubCertFile)
       connector = https
     } catch(e) {
       if (e.code !== 'ENOENT') {
