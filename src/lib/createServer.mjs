@@ -1,4 +1,5 @@
 import path from 'path'
+import crypto from 'crypto'
 
 import http from 'http'
 import https from 'https'
