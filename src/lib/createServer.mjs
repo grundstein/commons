@@ -1,5 +1,5 @@
 import path from 'path'
-import crypto from 'crypto'
+import tls from 'tls'
 
 import http from 'http'
 import https from 'https'
@@ -7,14 +7,27 @@ import https from 'https'
 import fs from '@magic/fs'
 import * as middleware from '../../middleware.mjs'
 
-const getSecureContext = certDir => async domain => [
-  domain,
-  crypto.createCredentials({
-    key: await fs.readFile(path.join(certDir, domain, 'privkey.pem')),
-    cert: await fs.readFile(path.join(certDir, domain, 'fullchain.pem')),
-  }).context
-]
+const getSecureContext = async (domain, certDir) => {
+  if (domain === certDir) {
+    return false
+  }
 
+  const name = domain.split('/').pop()
+
+  const keyFile = path.join(domain, 'privkey.pem')
+  const key = await fs.readFile(keyFile)
+
+  const chainFile = path.join(domain, 'fullchain.pem')
+  const cert = await fs.readFile(chainFile)
+
+  return [
+    name,
+    tls.createSecureContext({
+      key,
+      cert,
+    }).context
+  ]
+}
 
 export const createServer = async (config, handler) => {
   const { args, certDir, host, port, startTime } = config
@@ -24,23 +37,20 @@ export const createServer = async (config, handler) => {
   let connector = http
 
   if (certDir) {
-    // const privCertFile = path.join(certDir, 'privkey.pem')
-    // const pubCertFile = path.join(certDir, 'fullchain.pem')
-
     try {
       const availableCertificates = await fs.getDirectories(certDir)
 
-      const domainList = await Promise.all(availableCertificates.map(getSecureContext(certDir)))
+      const domainList = await Promise.all(availableCertificates.map(async d => await getSecureContext(d, certDir)))
 
-      const secureContext = Object.fromEntries(domainList)
+      const secureContext = Object.fromEntries(domainList.filter(a => a))
 
-      options.SNICallback = domain => secureContext[domain]
+      options.SNICallback = (domain, cb) => cb(null, secureContext[domain])
 
-      // options.key = await fs.readFile(privCertFile)
-      // options.cert = await fs.readFile(pubCertFile)
       connector = https
     } catch(e) {
-      if (e.code !== 'ENOENT') {
+      if (e.code === 'ENOENT') {
+        log.error(e)
+      } else {
         throw e
       }
     }
