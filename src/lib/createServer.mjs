@@ -13,7 +13,9 @@ export const createServer = async (config, handler) => {
 
   let connector = http
 
-  if (certDir) {
+  const certDirExists = await fs.exists(certDir)
+
+  if (certDirExists) {
     try {
       const secureContext = await createSecureContext(certDir)
 
