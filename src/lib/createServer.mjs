@@ -13,18 +13,20 @@ export const createServer = async (config, handler) => {
 
   let connector = http
 
-  const certDirExists = await fs.exists(certDir)
-
-  if (certDirExists) {
+  if (certDir) {
     try {
-      const secureContext = await createSecureContext(certDir)
+      const certDirExists = await fs.exists(certDir)
 
-      options.SNICallback = (domain, cb) => {
-        const apex = domain.split('.').slice(-2).join('.')
-        cb(null, secureContext[apex])
+      if (certDirExists) {
+        const secureContext = await createSecureContext(certDir)
+
+        options.SNICallback = (domain, cb) => {
+          const apex = domain.split('.').slice(-2).join('.')
+          cb(null, secureContext[apex])
+        }
+
+        connector = https
       }
-
-      connector = https
     } catch (e) {
       if (e.code === 'ENOENT') {
         log.error(e)
