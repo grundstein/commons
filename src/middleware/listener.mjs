@@ -1,8 +1,16 @@
 import log from '../log.mjs'
 
-export const listener = ({ startTime, host, port }) => () => {
-  log.success('Mainthread started', `pid: ${process.pid}`)
-  log(`server listening to ${host}:${port}`)
+import { getRequestDuration } from '../lib/index.mjs'
 
-  log.timeTaken(startTime, 'startup needed:')
+export const listener = ({ startTime, host, port }) => () => {
+  log.info(
+    'Mainthread pid:',
+    process.pid,
+    '. listening to ',
+    host,
+    ':',
+    port,
+    '. startup needed: ',
+    getDuration(startTime),
+  )
 }
