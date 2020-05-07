@@ -1,5 +1,4 @@
-import { log } from '../log.mjs'
-import { formatLog } from './formatLog.mjs'
+import log from '../log.mjs'
 
 export const respond = (req, res, payload = {}) => {
   const {
@@ -20,5 +19,5 @@ export const respond = (req, res, payload = {}) => {
   res.writeHead(code, head)
   res.end(body)
 
-  formatLog(req, res, { time, type })
+  log.request(req, res, { time, type })
 }
