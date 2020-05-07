@@ -1,1 +1,3 @@
-export { default as log } from '@magic/log'
+import log from '@magic/log'
+
+export default log

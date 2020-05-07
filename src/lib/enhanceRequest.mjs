@@ -1,4 +1,4 @@
-import { log } from '../log.mjs'
+import log from '../log.mjs'
 import { getRandomId } from './getRandomId.mjs'
 
 export const enhanceRequest = req => {
