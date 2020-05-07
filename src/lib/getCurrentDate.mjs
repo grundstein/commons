@@ -35,7 +35,7 @@ export const getCurrentDate = () => {
   }
 
   return {
-    date: `${year}/${month}/${day}`
-    time: `${hour}:${minute}:${second}:${millisecond}`
+    date: `${year}/${month}/${day}`,
+    time: `${hour}:${minute}:${second}:${millisecond}`,
   }
 }
