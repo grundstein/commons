@@ -11,6 +11,6 @@ export const listener = ({ startTime, host, port }) => () => {
     ':',
     port,
     '. startup needed: ',
-    getDuration(startTime),
+    getRequestDuration(startTime),
   )
 }
