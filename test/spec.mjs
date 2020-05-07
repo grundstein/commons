@@ -2,16 +2,12 @@ import { is } from '@magic/test'
 
 import types from '@magic/types'
 
-import magicLog from '@magic/log'
-
 import { log, lib, middleware, is as libIs } from '../src/index.mjs'
 
 import * as exportedLib from '../lib.mjs'
 import * as exportedMiddleware from '../middleware.mjs'
 
 export default [
-  { fn: is.deep.equal(log, magicLog), info: 'log equals @magic/log' },
-
   { fn: is.object(lib), info: 'lib is an object' },
   { fn: is.fn(lib.formatLog), info: 'lib.formatLog is a function' },
   { fn: is.fn(lib.getFileEncoding), info: 'lib.getFileEncoding is a function' },

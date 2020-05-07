@@ -2,7 +2,7 @@ import log from '@magic/log'
 
 import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
 
-log.request = (req, res, { time, type = 'request' }) => {
+const request = (req, res, { time, type = 'request' }) => {
   const { statusCode } = res
   const { url } = req
 
@@ -36,7 +36,7 @@ log.request = (req, res, { time, type = 'request' }) => {
   log(response)
 }
 
-log.error = (...msgs) => {
+const error = (...msgs) => {
   const { time, date } = getCurrentDate()
 
   const response = [
@@ -57,7 +57,7 @@ log.error = (...msgs) => {
   log(response)
 }
 
-log.info = (...msgs) => {
+const info = (...msgs) => {
   const { time, date } = getCurrentDate()
 
   const response = [
@@ -78,7 +78,7 @@ log.info = (...msgs) => {
   log(response)
 }
 
-log.warn = (...msgs) => {
+const warn = (...msgs) => {
   const { time, date } = getCurrentDate()
 
   const response = [
@@ -99,4 +99,10 @@ log.warn = (...msgs) => {
   log(response)
 }
 
-export default log
+export default {
+  ...log,
+  request,
+  info,
+  error,
+  warn,
+}
