@@ -15,7 +15,7 @@ export const formatLog = (req, res, { time, type = 'request' }) => {
     '"code": "',
     statusCode,
     '", ',
-    '"day": "',
+    '"date": "',
     timeData.date,
     '", ',
     '"time": "',
