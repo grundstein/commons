@@ -99,11 +99,13 @@ const warn = (...msgs) => {
   magicLog(response)
 }
 
-const log = (...a) => magicLog(...a)
+const log = magicLog
 
-log.request = request
-log.info = info
-log.error = error
-log.warn = warn
+log.server = {
+  request,
+  info,
+  error,
+  warn,
+}
 
 export default log
