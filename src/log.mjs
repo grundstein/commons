@@ -1,4 +1,4 @@
-import log from '@magic/log'
+import magicLog from '@magic/log'
 
 import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
 
@@ -33,7 +33,7 @@ const request = (req, res, { time, type = 'request' }) => {
     '}',
   ].join('')
 
-  log(response)
+  magicLog(response)
 }
 
 const error = (...msgs) => {
@@ -54,7 +54,7 @@ const error = (...msgs) => {
     '}',
   ].join('')
 
-  log(response)
+  magicLog(response)
 }
 
 const info = (...msgs) => {
@@ -75,7 +75,7 @@ const info = (...msgs) => {
     '}',
   ].join('')
 
-  log(response)
+  magicLog(response)
 }
 
 const warn = (...msgs) => {
@@ -96,13 +96,13 @@ const warn = (...msgs) => {
     '}',
   ].join('')
 
-  log(response)
+  magicLog(response)
 }
 
-export default {
-  ...log,
-  request,
-  info,
-  error,
-  warn,
-}
+const log = magicLog
+log.request = request
+log.info = info
+log.error = error
+log.warn = warn
+
+export default log
