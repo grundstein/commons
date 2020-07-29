@@ -99,7 +99,8 @@ const warn = (...msgs) => {
   magicLog(response)
 }
 
-const log = magicLog
+const log = (...a) => magicLog(...a)
+
 log.request = request
 log.info = info
 log.error = error
