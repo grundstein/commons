@@ -20,7 +20,7 @@ export const body = req =>
           try {
             body = JSON.parse(body)
           } catch (e) {
-            log.error(e)
+            log.server.error(e)
             reject(e)
             return
           }

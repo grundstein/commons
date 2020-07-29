@@ -11,7 +11,7 @@ export const getRandomId = () =>
       // but at least the progress won't die on us.
       if (err) {
         const id = Math.floor(Math.Random() * 1000000)
-        log.error(err)
+        log.server.error(err)
         resolve(id)
         return
       }

@@ -19,5 +19,5 @@ export const respond = (req, res, payload = {}) => {
   res.writeHead(code, head)
   res.end(body)
 
-  log.request(req, res, { time, type })
+  log.server.request(req, res, { time, type })
 }

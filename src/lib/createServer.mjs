@@ -2,6 +2,8 @@ import http from 'http'
 import https from 'https'
 
 import fs from '@magic/fs'
+
+import log from '../log.mjs'
 import * as middleware from '../../middleware.mjs'
 
 import { createSecureContext } from './createSecureContext.mjs'
@@ -29,7 +31,7 @@ export const createServer = async (config, handler) => {
       }
     } catch (e) {
       if (e.code === 'ENOENT') {
-        log.error(e)
+        log.server.error(e)
       } else {
         throw e
       }
