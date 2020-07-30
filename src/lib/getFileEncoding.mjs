@@ -1,7 +1,7 @@
 export const getFileEncoding = (file, acceptEncoding) => {
-  const encoding = 'buffer'
+  let encoding = 'buffer'
 
-  if (Array.isArray(acceptEncoding) && acceptEncoding.length) {
+  if (acceptEncoding.length) {
     if (acceptEncoding.includes('br') && file.br) {
       encoding = 'br'
     } else if (acceptEncoding.includes('gzip') && file.gzip) {
