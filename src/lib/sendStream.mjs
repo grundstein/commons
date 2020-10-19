@@ -1,9 +1,7 @@
 import { createReadStream } from 'fs'
 
 export const sendStream = (req, res, options) => {
-  const { file, code = 200, type = 'sendFile' } = options
-  let { headers = {} } = options
-
+  const { file, headers = {} } = options
   const { range } = req.headers
 
   if (range) {
@@ -12,7 +10,13 @@ export const sendStream = (req, res, options) => {
     const end = endByte ? parseInt(endByte, 10) : file.size - 1
 
     if (start >= file.size) {
-      res.status(416).send(`Requested range not satisfiable ${start} >= ${file.size}`)
+      const errorString = `Requested range not satisfiable ${start} >= ${file.size}`
+      const errorBuffer = Buffer.from(errorString)
+      headers['Content-Type'] = 'text/plain'
+      headers['Content-Length'] = Buffer.byteLength(errorBuffer)
+
+      res.writeHead(416, headers)
+      res.end(errorMessage)
       return
     }
 
