@@ -21,7 +21,6 @@ export const sendStream = (req, res, options) => {
     }
 
     const chunksize = end - start + 1
-    const fileStream = createReadStream(file.path, { start, end })
 
     headers['Content-Range'] = `bytes ${start}-${end}/${file.size}`
     headers['Accept-Ranges'] = 'bytes'
@@ -29,7 +28,7 @@ export const sendStream = (req, res, options) => {
     headers['Content-Type'] = file.mime
 
     res.writeHead(206, headers)
-    fileStream.pipe(res)
+    createReadStream(file.path, { start, end }).pipe(res)
   } else {
     headers['Content-Length'] = file.size
     headers['Content-Type'] = file.mime
