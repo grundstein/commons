@@ -100,7 +100,9 @@ const warn = cons => (...msgs) => {
   cons(response)
 }
 
-export const fileLog = name => {
+const defaultOutputPath = path.join('/var', 'log', 'grundstein')
+
+export const fileLog = (name, outputPath = defaultOutputPath) => {
   if (!name) {
     const nameArray = process.cwd().split(path.sep)
     const namePart = `${nameArray[nameArray.length - 1]}`
@@ -108,7 +110,6 @@ export const fileLog = name => {
     name = `${namePart}-${random}`
   }
 
-  const outputPath = path.join('/var', 'log', 'grundstein')
   const stdoutFile = path.join(outputPath, `${name}-access.log`)
   const stdoutStream = createWriteStream(stdoutFile)
   const stderrFile = path.join(outputPath, `${name}-error.log`)
