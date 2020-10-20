@@ -4,13 +4,11 @@ import { getRequestDuration } from '../lib/index.mjs'
 
 export const listener = ({ startTime, host, port }) => () => {
   log.server.info(
-    'Mainthread pid:',
+    'Pid:',
     process.pid,
-    '. listening to ',
-    host,
-    ':',
-    port,
-    '. startup needed: ',
+    'Listening to',
+    `${host}:${port}`,
+    'Startup needed:',
     getRequestDuration(startTime),
   )
 }
