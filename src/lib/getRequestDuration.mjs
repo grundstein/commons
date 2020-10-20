@@ -6,10 +6,11 @@ export const getRequestDuration = time => {
 
   if (span > 1500000) {
     unit = 's'
-    span = span / 1000000
+    span /= 1000000
+    span /= 1000
   } else if (ns > 1500) {
     unit = 'ms'
-    span = span / 1000
+    span /= 1000
   }
 
   span = span.toFixed(1)
