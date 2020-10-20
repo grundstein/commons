@@ -7,7 +7,7 @@
   "description": "NOT YET BENCHMARKED OR IN PRODUCTION! @grundstein/commons. shared library functionality, server middleware, lib and init functions.",
   "main": "src/index.mjs",
   "engines": {
-    "node": ">=13.5.0"
+    "node": ">=14.14.0"
   },
   "engineStrict": true,
   "scripts": {
