@@ -9,7 +9,7 @@ import * as middleware from '../../middleware.mjs'
 import { createSecureContext } from './createSecureContext.mjs'
 
 export const createServer = async (config, handler) => {
-  const { args, certDir, host, port, startTime } = config
+  const { certDir, host, port, startTime } = config
 
   const options = {}
 
