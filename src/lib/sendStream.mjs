@@ -9,6 +9,10 @@ export const sendStream = (req, res, options) => {
   let start = 0
   let end = file.size - 1
 
+  if (file.mime === 'application/javascript' || file.mime === 'application/css') {
+    file.mime = file.mime.replace('application', 'text')
+  }
+
   if (!range) {
     headers['Content-Length'] = file.size
     headers['Content-Type'] = file.mime
@@ -23,6 +27,7 @@ export const sendStream = (req, res, options) => {
     if (start >= file.size) {
       const errorString = `Requested range not satisfiable ${start} >= ${file.size}`
       const errorBuffer = Buffer.from(errorString)
+
       headers['Content-Type'] = 'text/plain'
       headers['Content-Length'] = Buffer.byteLength(errorBuffer)
 
@@ -30,7 +35,6 @@ export const sendStream = (req, res, options) => {
       res.end(errorMessage)
       return
     }
-
 
     const chunksize = end - start + 1
 
@@ -46,10 +50,12 @@ export const sendStream = (req, res, options) => {
   readStream.setEncoding('utf8')
 
   readStream.on('open', () => {
+    console.log('open stream')
     readStream.pipe(res)
   })
 
   readStream.on('error', err => {
+    console.log('end stream')
     res.end(err)
   })
 }
