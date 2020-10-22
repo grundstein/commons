@@ -4,7 +4,7 @@ export const sendStream = (req, res, options) => {
   const { file, headers = {} } = options
   const { range } = req.headers
 
-  const statusCode = 206
+  let statusCode = 200
 
   let start = 0
   let end = file.size - 1
@@ -17,6 +17,8 @@ export const sendStream = (req, res, options) => {
     const [startByte, endByte] = range.replace(/bytes=/, '').split('-')
     start = parseInt(startByte, 10)
     end = endByte ? parseInt(endByte, 10) : file.size - 1
+
+    statusCode = 206
   }
 
   if (start >= file.size) {
@@ -37,19 +39,11 @@ export const sendStream = (req, res, options) => {
   headers['Accept-Ranges'] = 'bytes'
   headers['Content-Length'] = chunksize
   headers['Content-Type'] = file.mime
-}
 
-res.writeHead(statusCode, headers)
 
-const readStream = createReadStream(file.path, { start, end })
+  res.writeHead(statusCode, headers)
 
-readStream.on('open', () => {
-  console.log('open stream')
+  const readStream = createReadStream(file.path, { start, end })
+
   readStream.pipe(res)
-})
-
-readStream.on('error', err => {
-  console.log('end stream')
-  res.end(err)
-})
 }
