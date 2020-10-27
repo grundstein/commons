@@ -30,13 +30,13 @@
   "dependencies": {
     "@magic/cli": "0.0.29",
     "@magic/error": "0.0.7",
-    "@magic/fs": "0.0.8",
+    "@magic/fs": "0.0.9",
     "@magic/log": "0.1.7",
     "@magic/types": "0.1.13"
   },
   "devDependencies": {
-    "@magic/format": "0.0.17",
-    "@magic/test": "0.1.56"
+    "@magic/format": "0.0.18",
+    "@magic/test": "0.1.57"
   },
   "keywords": [
     "grundstein",
