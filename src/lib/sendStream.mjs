@@ -22,8 +22,8 @@ export const sendStream = (req, res, options) => {
   }
 
   if (start >= file.size) {
-    const errorString = `Requested range not satisfiable ${start} >= ${file.size}`
-    const errorBuffer = Buffer.from(errorString)
+    const errorMessage = `Requested range not satisfiable ${start} >= ${file.size}`
+    const errorBuffer = Buffer.from(errorMessage)
 
     headers['Content-Type'] = 'text/plain'
     headers['Content-Length'] = Buffer.byteLength(errorBuffer)
