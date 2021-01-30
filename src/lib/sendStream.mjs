@@ -40,10 +40,12 @@ export const sendStream = (req, res, options) => {
   headers['Content-Length'] = chunksize
   headers['Content-Type'] = file.mime
 
-  // reset cache headers, this is a video and can not be cached
-  headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-  headers['Pragma'] = 'no-cache'
-  headers['Expires'] = 0
+  if (end <= file.size - 1) {
+    // reset cache headers, this is a video and can not be cached
+    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    headers['Pragma'] = 'no-cache'
+    headers['Expires'] = 0
+  }
 
   res.writeHead(statusCode, headers)
 
