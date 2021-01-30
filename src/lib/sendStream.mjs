@@ -52,4 +52,13 @@ export const sendStream = (req, res, options) => {
   const readStream = createReadStream(file.path, { start, end })
 
   readStream.pipe(res)
+
+  res.on('close', () => {
+    if (res.readStream) {
+      res.readStream.unpipe(readStream)
+      if (readStream.fd) {
+        fs.close(readStream.fd)
+      }
+    }
+  })
 }
