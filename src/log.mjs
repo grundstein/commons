@@ -1,14 +1,16 @@
 import magicLog from '@magic/log'
 
-import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
+import { getCurrentDate, getRequestDuration, getClientIp } from './lib/index.mjs'
 
-const request = (req, res, { time, type = 'request' }) => {
+const request = (req, res, { time, type = 'request', getFullIp = false }) => {
   const { statusCode } = res
   const { url } = req
 
   const duration = getRequestDuration(time)
 
   const timeData = getCurrentDate()
+
+  const clientIp = getClientIp(req, getFullIp)
 
   const response = [
     '{',
@@ -29,8 +31,10 @@ const request = (req, res, { time, type = 'request' }) => {
     '", ',
     '"path": "',
     url,
-    '" ',
-    '}',
+    '", ',
+    '"ip": "',
+    clientIp,
+    '"}',
   ].join('')
 
   magicLog(response)

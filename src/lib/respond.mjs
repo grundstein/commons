@@ -7,6 +7,7 @@ export const respond = (req, res, payload = {}) => {
     headers = [],
     time = log.hrtime(),
     type = 'response',
+    getFullIp = false,
   } = payload
 
   const head = {
@@ -19,5 +20,5 @@ export const respond = (req, res, payload = {}) => {
   res.writeHead(code, head)
   res.end(body)
 
-  log.server.request(req, res, { time, type })
+  log.server.request(req, res, { time, type, getFullIp })
 }
