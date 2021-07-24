@@ -1,6 +1,6 @@
 import log from '../log.mjs'
 
-import { getRequestDuration } from '../lib/index.mjs'
+import { getRequestDuration } from '../lib/getRequestDuration.mjs'
 
 export const listener = ({ startTime, host, port }) => () => {
   log.server.info(

@@ -1,6 +1,8 @@
 import magicLog from '@magic/log'
 
-import { getCurrentDate, getRequestDuration, getClientIp } from './lib/index.mjs'
+import { getCurrentDate } from './lib/getCurrentDate.mjs'
+import { getRequestDuration } from './lib/getRequestDuration.mjs'
+import { getClientIp } from './lib/getClientIp.mjs'
 
 const request = (req, res, { time, type = 'request', getFullIp = false }) => {
   const { statusCode } = res
