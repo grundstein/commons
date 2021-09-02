@@ -3,102 +3,110 @@ import { createWriteStream } from 'fs'
 
 import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
 
-const request = cons => (req, res, { time, type = 'request' }) => {
-  const { statusCode } = res
-  const { url } = req
+const request =
+  cons =>
+  (req, res, { time, type = 'request' }) => {
+    const { statusCode } = res
+    const { url } = req
 
-  const duration = getRequestDuration(time)
+    const duration = getRequestDuration(time)
 
-  const timeData = getCurrentDate()
+    const timeData = getCurrentDate()
 
-  const response = [
-    '{',
-    ' "code": "',
-    statusCode,
-    '", ',
-    '"date": "',
-    timeData.date,
-    '", ',
-    '"time": "',
-    timeData.time,
-    '", ',
-    '"duration": "',
-    duration,
-    '", ',
-    '"type": "',
-    type,
-    '", ',
-    '"path": "',
-    url,
-    '" ',
-    '}',
-  ].join('')
+    const response = [
+      '{',
+      ' "code": "',
+      statusCode,
+      '", ',
+      '"date": "',
+      timeData.date,
+      '", ',
+      '"time": "',
+      timeData.time,
+      '", ',
+      '"duration": "',
+      duration,
+      '", ',
+      '"type": "',
+      type,
+      '", ',
+      '"path": "',
+      url,
+      '" ',
+      '}',
+    ].join('')
 
-  cons(response)
-}
+    cons(response)
+  }
 
-const error = cons => (...msgs) => {
-  const { time, date } = getCurrentDate()
+const error =
+  cons =>
+  (...msgs) => {
+    const { time, date } = getCurrentDate()
 
-  const response = [
-    '{',
-    '"type": "error", ',
-    '"date": "',
-    date,
-    '", ',
-    '"time": "',
-    time,
-    '", ',
-    '"msg": "',
-    msgs.join(' '),
-    '" ',
-    '}',
-  ].join('')
+    const response = [
+      '{',
+      '"type": "error", ',
+      '"date": "',
+      date,
+      '", ',
+      '"time": "',
+      time,
+      '", ',
+      '"msg": "',
+      msgs.join(' '),
+      '" ',
+      '}',
+    ].join('')
 
-  cons(response)
-}
+    cons(response)
+  }
 
-const info = cons => (...msgs) => {
-  const { time, date } = getCurrentDate()
+const info =
+  cons =>
+  (...msgs) => {
+    const { time, date } = getCurrentDate()
 
-  const response = [
-    '{',
-    '"type": "info", ',
-    '"date": "',
-    date,
-    '", ',
-    '"time": "',
-    time,
-    '", ',
-    '"msg": "',
-    msgs.join(' '),
-    '" ',
-    '}',
-  ].join('')
+    const response = [
+      '{',
+      '"type": "info", ',
+      '"date": "',
+      date,
+      '", ',
+      '"time": "',
+      time,
+      '", ',
+      '"msg": "',
+      msgs.join(' '),
+      '" ',
+      '}',
+    ].join('')
 
-  cons(response)
-}
+    cons(response)
+  }
 
-const warn = cons => (...msgs) => {
-  const { time, date } = getCurrentDate()
+const warn =
+  cons =>
+  (...msgs) => {
+    const { time, date } = getCurrentDate()
 
-  const response = [
-    '{',
-    '"type": "warn", ',
-    '"date": "',
-    date,
-    '", ',
-    '"time": "',
-    time,
-    '", ',
-    '"msg": "',
-    msgs.join(' '),
-    '" ',
-    '}',
-  ].join('')
+    const response = [
+      '{',
+      '"type": "warn", ',
+      '"date": "',
+      date,
+      '", ',
+      '"time": "',
+      time,
+      '", ',
+      '"msg": "',
+      msgs.join(' '),
+      '" ',
+      '}',
+    ].join('')
 
-  cons(response)
-}
+    cons(response)
+  }
 
 const defaultOutputPath = path.join('/var', 'log', 'grundstein')
 
