@@ -1,14 +1,14 @@
-const getIpPart = () => Math.floor(Math.random() * 256)
+export const getClientIp = (req = {}, full = false) => {
+  const { connection = {}, headers = {} } = req
 
-export const getClientIp = (req, full = false) => {
-  const ip = req.headers['x-forwarded-for']
-    ? req.headers['x-forwarded-for'].split(',')[0]
-    : req.connection.remoteAddress
+  const ip = headers['x-forwarded-for']
+    ? headers['x-forwarded-for'].split(',')[0]
+    : connection.remoteAddress
 
   let splitter = '.'
 
   if (!ip) {
-    return `${getIpPart()}.${getIpPart()}.${getIpPart()}.235`
+    return 'unknown'
   }
 
   if (full) {
@@ -20,7 +20,10 @@ export const getClientIp = (req, full = false) => {
   }
 
   const ipArray = ip.split(splitter)
+  // remove last part of ip address
   ipArray.pop()
 
-  return `${ipArray.join(splitter)}${splitter}${splitter === '.' && '235'}`
+  const ipString = ipArray.join(splitter)
+
+  return `${ipString}${splitter}235`
 }
