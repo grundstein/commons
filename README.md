@@ -122,3 +122,6 @@ first release
 * add lib.etags
 * lib.createServer now wraps the handler function to use denyRequest
 * update dependencies
+
+##### 0.0.3
+* getClientIp is much more sophisticated, looking for the ip in multiple headers and request subfields.
