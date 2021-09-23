@@ -119,6 +119,6 @@ sends a file as a stream.
 first release
 
 ##### 0.0.2
-* update dependencies
 * add lib.etags
 * lib.createServer now wraps the handler function to use denyRequest
+* update dependencies
