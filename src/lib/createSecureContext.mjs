@@ -3,7 +3,10 @@ import tls from 'tls'
 
 import fs from '@magic/fs'
 
-const getDomainContext = (ctx, certDir) => async domain => {
+/*
+ * TODO: rewrite this function in rust to make sure we instantly forget the contents of the secret files.
+ */
+const getDomainContext = (certDir) => async domain => {
   if (domain === certDir) {
     return false
   }
@@ -21,15 +24,16 @@ const getDomainContext = (ctx, certDir) => async domain => {
     cert,
   })
 
-  ctx[name] = context
+  return [name, context]
 }
 
 export const createSecureContext = async certDir => {
-  const secureContext = {}
-
   const availableCertificates = await fs.getDirectories(certDir)
 
-  await Promise.all(availableCertificates.map(getDomainContext(secureContext, certDir)))
+  const domainContextCreator = getDomainContext(certDir)
+
+  const contextArray = await Promise.all(availableCertificates.map(domainContextCreator))
+  const secureContext = Object.fromEntries(contextArray)
 
   return secureContext
 }
