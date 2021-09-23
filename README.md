@@ -112,3 +112,13 @@ then sends the correct content with correct headers using lib.respond
 
 ##### sendStream
 sends a file as a stream.
+
+#### changelog
+
+##### 0.0.1
+first release
+
+##### 0.0.2
+* update dependencies
+* add lib.etags
+* lib.createServer now wraps the handler function to use denyRequest
