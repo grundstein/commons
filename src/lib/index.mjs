@@ -1,5 +1,6 @@
 export { createServer } from './createServer.mjs'
 export { createSecureContext } from './createSecureContext.mjs'
+export { denyRequest } from './denyRequest.mjs'
 export { enhanceRequest } from './enhanceRequest.mjs'
 export { getClientIp } from './getClientIp.mjs'
 export { getCurrentDate } from './getCurrentDate.mjs'
