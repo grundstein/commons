@@ -1,29 +1,64 @@
+import { is } from '../is.mjs'
+import { cleanIpAddress } from './cleanIpAddress.mjs'
+
+/**
+ * Returns the IP address from the headers, if it exists.
+ */
 export const getClientIp = (req = {}, full = false) => {
-  const { connection = {}, headers = {} } = req
+  if (req.headers) {
+    const keys = [
+      'x-forwarded-for',
+      'x-forwarded',
+      'forwarded-for',
+      'forwarded',
+      // Heroku, AWS EC2, nginx (if configured), and others
+      'x-client-ip',
+      // used by some proxies, like nginx
+      'x-real-ip',
+      // Cloudflare
+      'cf-connecting-ip',
+      // Fastly and Firebase
+      'fastly-client-ip',
+      // Akamai, Cloudflare
+      'true-client-ip',
+      // Rackspace
+      'x-cluster-client-ip',
+    ]
 
-  const ip = headers['x-forwarded-for']
-    ? headers['x-forwarded-for'].split(',')[0]
-    : connection.remoteAddress
+    const headerKey = keys.find(key => is.ip(req.headers[key]))
 
-  let splitter = '.'
-
-  if (!ip) {
-    return 'unknown'
+    if (headerKey) {
+      const value = req.headers[headerKey]
+      return cleanIpAddress(value, full)
+    }
   }
 
-  if (full) {
-    return ip
+  const { connection = {} } = req
+  if (is.ip(connection.remoteAddress)) {
+    return cleanIpAddress(connection.remoteAddress, full)
   }
 
-  if (ip.includes(':') && !ip.includes('.')) {
-    splitter = ':'
+  if (connection.socket) {
+    if (is.ip(connection.socket.remoteAddress)) {
+      return cleanIpAddress(connection.socket.remoteAddress, full)
+    }
   }
 
-  const ipArray = ip.split(splitter)
-  // remove last part of ip address
-  ipArray.pop()
+  const { socket = {} } = req
+  if (is.ip(socket.remoteAddress)) {
+    return cleanIpAddress(socket.remoteAddress, full)
+  }
 
-  const ipString = ipArray.join(splitter)
+  const { info = {} } = req
+  if (is.ip(info.remoteAddress)) {
+    return cleanIpAddress(info.remoteAddress, full)
+  }
 
-  return `${ipString}${splitter}xxx`
+  const { requestContext = {} } = req
+  const { identity = {} } = requestContext
+  if (is.ip(identity.sourceIp)) {
+    return cleanIpAddress(identity.sourceIp, full)
+  }
+
+  return 'unknown'
 }

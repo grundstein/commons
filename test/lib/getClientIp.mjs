@@ -14,7 +14,26 @@ const validIpv6Headers = {
   'x-forwarded-for': '1:2ab3:4:5:6:7:8:9',
 }
 
-const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxx'
+const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxxx'
+
+const keys = [
+  'x-forwarded-for',
+  'x-forwarded',
+  'forwarded-for',
+  'forwarded',
+  // Heroku, AWS EC2, nginx (if configured), and others
+  'x-client-ip',
+  // used by some proxies, like nginx
+  'x-real-ip',
+  // Cloudflare
+  'cf-connecting-ip',
+  // Fastly and Firebase
+  'fastly-client-ip',
+  // Akamai, Cloudflare
+  'true-client-ip',
+  // Rackspace
+  'x-cluster-client-ip',
+]
 
 export default [
   {
@@ -62,4 +81,9 @@ export default [
     expect: validIpv6HeaderResponse,
     info: 'calling with ipv6 ip returns anonymized ip.',
   },
+  ...keys.map(key => ({
+    fn: getClientIp({ headers: { [key]: '1.2.3.4' } }),
+    expect: '1.2.3.xxx',
+    info: `using req.headers[${key}] works`,
+  })),
 ]
