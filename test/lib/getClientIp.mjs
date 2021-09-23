@@ -3,18 +3,18 @@ import { getClientIp } from '../../src/lib/getClientIp.mjs'
 const validHeaders = {
   'x-forwarded-for': '1.2.3.4',
 }
-const validHeaderResponse = '1.2.3.235'
+const validHeaderResponse = '1.2.3.xxx'
 
 const validConnection = {
   remoteAddress: '2.3.4.5',
 }
-const validConnectionResponse = '2.3.4.235'
+const validConnectionResponse = '2.3.4.xxx'
 
 const validIpv6Headers = {
   'x-forwarded-for': '1:2ab3:4:5:6:7:8:9'
 }
 
-const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:235'
+const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxx'
 
 export default [
   { fn: getClientIp(), expect: 'unknown', info: 'calling getClientIp without arguments returns "unknown"' },

@@ -25,5 +25,5 @@ export const getClientIp = (req = {}, full = false) => {
 
   const ipString = ipArray.join(splitter)
 
-  return `${ipString}${splitter}235`
+  return `${ipString}${splitter}xxx`
 }
