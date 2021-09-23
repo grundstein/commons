@@ -16,7 +16,6 @@ export const getEtag =
     const key = getEtagKeyFromFilePath({ dir, file })
 
     if (!cache[key]) {
-      // takes 0.01 ms, refactor later,
       // this one function almost doubles response time
       cache[key] = (stat.size + stat.mtimeMs).toString(36)
     }
