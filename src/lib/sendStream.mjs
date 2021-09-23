@@ -9,10 +9,6 @@ export const sendStream = (req, res, options) => {
   let start = 0
   let end = file.size - 1
 
-  // if (file.mime === 'application/javascript' || file.mime === 'application/css') {
-  //   file.mime = file.mime.replace('application', 'text')
-  // }
-
   if (range) {
     const [startByte, endByte] = range.replace(/bytes=/, '').split('-')
     start = parseInt(startByte, 10)
@@ -39,13 +35,6 @@ export const sendStream = (req, res, options) => {
   headers['Accept-Ranges'] = 'bytes'
   headers['Content-Length'] = chunksize
   headers['Content-Type'] = file.mime
-
-  // if (end <= file.size - 1) {
-  //   // reset cache headers, this is a video and can not be cached
-  //   headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-  //   headers['Pragma'] = 'no-cache'
-  //   headers['Expires'] = 0
-  // }
 
   res.writeHead(statusCode, headers)
 
