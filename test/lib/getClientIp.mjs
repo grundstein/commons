@@ -11,19 +11,55 @@ const validConnection = {
 const validConnectionResponse = '2.3.4.xxx'
 
 const validIpv6Headers = {
-  'x-forwarded-for': '1:2ab3:4:5:6:7:8:9'
+  'x-forwarded-for': '1:2ab3:4:5:6:7:8:9',
 }
 
 const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxx'
 
 export default [
-  { fn: getClientIp(), expect: 'unknown', info: 'calling getClientIp without arguments returns "unknown"' },
-  { fn: getClientIp(), expect: 'unknown', info: 'calling getClientIp without arguments returns "unknown"' },
-  { fn: getClientIp({ connection: {}, headers: {} }), expect: 'unknown', info: 'calling getClientIp without headers and connection returns "unknown"' },
-  { fn: getClientIp({ headers: validHeaders }, true), expect: validHeaders['x-forwarded-for'], info: 'calling with headers[x-forwarded-for] and full returns full ip.' },
-  { fn: getClientIp({ connection: validConnection }, true), expect: validConnection.remoteAddress, info: 'calling with connection.remoteAddress and full returns full ip.' },
-  { fn: getClientIp({ headers: validHeaders }), expect: validHeaderResponse, info: 'calling with connection.remoteAddress and full returns full ip.' },
-  { fn: getClientIp({ connection: validConnection }), expect: validConnectionResponse, info: 'calling with connection.remoteAddress and full returns full ip.' },
-  { fn: getClientIp({ headers: validIpv6Headers }, true), expect: validIpv6Headers['x-forwarded-for'], info: 'calling with ipv6 ip and full returns full ip.' },
-  { fn: getClientIp({ headers: validIpv6Headers }), expect: validIpv6HeaderResponse, info: 'calling with ipv6 ip returns anonymized ip.' },
+  {
+    fn: getClientIp(),
+    expect: 'unknown',
+    info: 'calling getClientIp without arguments returns "unknown"',
+  },
+  {
+    fn: getClientIp(),
+    expect: 'unknown',
+    info: 'calling getClientIp without arguments returns "unknown"',
+  },
+  {
+    fn: getClientIp({ connection: {}, headers: {} }),
+    expect: 'unknown',
+    info: 'calling getClientIp without headers and connection returns "unknown"',
+  },
+  {
+    fn: getClientIp({ headers: validHeaders }, true),
+    expect: validHeaders['x-forwarded-for'],
+    info: 'calling with headers[x-forwarded-for] and full returns full ip.',
+  },
+  {
+    fn: getClientIp({ connection: validConnection }, true),
+    expect: validConnection.remoteAddress,
+    info: 'calling with connection.remoteAddress and full returns full ip.',
+  },
+  {
+    fn: getClientIp({ headers: validHeaders }),
+    expect: validHeaderResponse,
+    info: 'calling with connection.remoteAddress and full returns full ip.',
+  },
+  {
+    fn: getClientIp({ connection: validConnection }),
+    expect: validConnectionResponse,
+    info: 'calling with connection.remoteAddress and full returns full ip.',
+  },
+  {
+    fn: getClientIp({ headers: validIpv6Headers }, true),
+    expect: validIpv6Headers['x-forwarded-for'],
+    info: 'calling with ipv6 ip and full returns full ip.',
+  },
+  {
+    fn: getClientIp({ headers: validIpv6Headers }),
+    expect: validIpv6HeaderResponse,
+    info: 'calling with ipv6 ip returns anonymized ip.',
+  },
 ]

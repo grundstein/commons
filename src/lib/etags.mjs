@@ -12,17 +12,17 @@ export const getEtagKeyFromFilePath = ({ dir, file }) => {
 
 export const getEtag =
   ({ dir, cache = {} }) =>
-    ({ file, stat }) => {
-      const key = getEtagKeyFromFilePath({ dir, file })
+  ({ file, stat }) => {
+    const key = getEtagKeyFromFilePath({ dir, file })
 
-      if (!cache[key]) {
-        // takes 0.01 ms, refactor later,
-        // this one function almost doubles response time
-        cache[key] = (stat.size + stat.mtimeMs).toString(36)
-      }
-
-      return cache[key]
+    if (!cache[key]) {
+      // takes 0.01 ms, refactor later,
+      // this one function almost doubles response time
+      cache[key] = (stat.size + stat.mtimeMs).toString(36)
     }
+
+    return cache[key]
+  }
 
 export const etags = async dir => {
   let cache = {}

@@ -6,7 +6,7 @@ import fs from '@magic/fs'
 /*
  * TODO: rewrite this function in rust to make sure we instantly forget the contents of the secret files.
  */
-const getDomainContext = (certDir) => async domain => {
+const getDomainContext = certDir => async domain => {
   if (domain === certDir) {
     return false
   }
