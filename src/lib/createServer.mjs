@@ -10,7 +10,7 @@ import { createSecureContext } from './createSecureContext.mjs'
 import { denyRequest } from './denyRequest.mjs'
 
 export const createServer = async (config, handler) => {
-  const { certDir, host, port, startTime } = config
+  const { certDir, host, port, startTime = log.hrtime() } = config
 
   const options = {}
 
