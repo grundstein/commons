@@ -125,3 +125,6 @@ first release
 
 ##### 0.0.3
 * getClientIp is much more sophisticated, looking for the ip in multiple headers and request subfields.
+
+##### 0.0.4
+update dependencies
