@@ -28,7 +28,7 @@ const getDomainContext = certDir => async domain => {
 }
 
 export const createSecureContext = async certDir => {
-  const availableCertificates = await fs.getDirectories(certDir)
+  const availableCertificates = await fs.getDirectories(certDir, { noRoot: true })
 
   const domainContextCreator = getDomainContext(certDir)
 
