@@ -128,3 +128,9 @@ first release
 
 ##### 0.0.4
 update dependencies
+
+##### 0.0.5
+make sure that lib/createSecureContext does not try to find keys in the root keystore, only in subdirectories
+
+##### 0.0.6 - unreleased
+...
