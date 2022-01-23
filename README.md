@@ -132,5 +132,9 @@ update dependencies
 ##### 0.0.5
 make sure that lib/createSecureContext does not try to find keys in the root keystore, only in subdirectories
 
-##### 0.0.6 - unreleased
+##### 0.0.6
+* update dependencies
+* lib/createServer uses localhost as default host
+
+##### 0.0.7 - unreleased
 ...
