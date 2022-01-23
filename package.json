@@ -12,7 +12,8 @@
   "engineStrict": true,
   "scripts": {
     "start": "npm test",
-    "test": "t",
+    "test": "t -p",
+    "cover": "t",
     "format": "f -w"
   },
   "files": [
