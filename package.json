@@ -28,15 +28,15 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@magic/cli": "0.0.34",
-    "@magic/error": "0.0.10",
-    "@magic/fs": "0.0.18",
-    "@magic/log": "0.1.10",
-    "@magic/types": "0.1.16"
+    "@magic/cli": "0.0.38",
+    "@magic/error": "0.0.12",
+    "@magic/fs": "0.0.22",
+    "@magic/log": "0.1.13",
+    "@magic/types": "0.1.18"
   },
   "devDependencies": {
-    "@magic/format": "0.0.33",
-    "@magic/test": "0.1.77"
+    "@magic/format": "0.0.37",
+    "@magic/test": "0.2.5"
   },
   "keywords": [
     "grundstein",
