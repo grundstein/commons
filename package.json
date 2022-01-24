@@ -36,8 +36,8 @@
     "@magic/types": "0.1.18"
   },
   "devDependencies": {
-    "@magic/format": "0.0.37",
-    "@magic/test": "0.2.5"
+    "@magic/format": "0.0.38",
+    "@magic/test": "0.2.6"
   },
   "keywords": [
     "grundstein",
