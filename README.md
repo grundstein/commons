@@ -139,5 +139,8 @@ make sure that lib/createSecureContext does not try to find keys in the root key
 ##### 0.0.7
 update dependencies
 
-##### 0.0.8 - unreleased
+##### 0.0.8
+update dependencies
+
+##### 0.0.9 - unreleased
 ...
