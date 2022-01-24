@@ -29,7 +29,7 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@magic/cli": "0.0.38",
+    "@magic/cli": "0.0.39",
     "@magic/error": "0.0.12",
     "@magic/fs": "0.0.22",
     "@magic/log": "0.1.13",
