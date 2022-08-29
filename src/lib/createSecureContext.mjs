@@ -42,8 +42,7 @@ const getDomainContext =
   }
 
 export const createSecureContext = async args => {
-  const { certDir, host } = args
-  console.log(certDir)
+  const { certDir } = args
 
   const availableCertificates = await fs.getDirectories(certDir, { noRoot: true })
 
