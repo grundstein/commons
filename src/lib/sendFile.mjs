@@ -12,7 +12,7 @@ const {
 } = http2.constants
 
 export const sendFile = (stream, headers, options) => {
-  let { code = 200, head, file } = options
+  let { code = 200, head, file, time = log.hrtime() } = options
 
   const encoding = getFileEncoding(file, headers['accept-encoding'])
 
@@ -37,7 +37,7 @@ export const sendFile = (stream, headers, options) => {
       }
     } catch (err) {
       // Perform actual error handling.
-      console.log(err)
+      log.server.error(`E_${err.code}`, err.msg)
     }
 
     stream.end()
@@ -47,5 +47,6 @@ export const sendFile = (stream, headers, options) => {
     file.path = path.join(process.cwd(), file.path)
   }
 
+  log.server.request(stream, headers, { head, time })
   return stream.respondWithFile(file.path, head, { onError })
 }
