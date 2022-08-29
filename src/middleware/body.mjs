@@ -4,9 +4,7 @@
 
 import http2 from 'node:http2'
 
-const {
-  HTTP2_HEADER_CONTENT_TYPE,
-} = http2.constants
+const { HTTP2_HEADER_CONTENT_TYPE } = http2.constants
 
 export const body = (stream, headers) =>
   new Promise((resolve, reject) => {

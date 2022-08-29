@@ -5,10 +5,7 @@ import log from '../log.mjs'
 import { getRequestDuration } from './getRequestDuration.mjs'
 import { getCurrentDate } from './getCurrentDate.mjs'
 
-const {
-  HTTP2_HEADER_STATUS,
-  HTTP2_HEADER_PATH,
-} = http2.constants
+const { HTTP2_HEADER_STATUS, HTTP2_HEADER_PATH } = http2.constants
 
 export const formatLog = (stream, headers, { head, time, type = 'request' }) => {
   const url = headers[HTTP2_HEADER_PATH]
