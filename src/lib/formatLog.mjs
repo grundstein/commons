@@ -1,11 +1,18 @@
+import http2 from 'node:http2'
+
 import log from '../log.mjs'
 
 import { getRequestDuration } from './getRequestDuration.mjs'
 import { getCurrentDate } from './getCurrentDate.mjs'
 
-export const formatLog = (req, res, { time, type = 'request' }) => {
-  const { statusCode } = res
-  const { url } = req
+const {
+  HTTP2_HEADER_STATUS,
+  HTTP2_HEADER_PATH,
+} = http2.constants
+
+export const formatLog = (stream, headers, { head, time, type = 'request' }) => {
+  const url = headers[HTTP2_HEADER_PATH]
+  const statusCode = head[HTTP2_HEADER_STATUS]
 
   const duration = getRequestDuration(time)
 
