@@ -2,18 +2,24 @@
 // it loads the full request body into ram before returning.
 // request body size limits should be set in this middleware in the future.
 
-export const body = req =>
+import http2 from 'node:http2'
+
+const {
+  HTTP2_HEADER_CONTENT_TYPE,
+} = http2.constants
+
+export const body = (stream, headers) =>
   new Promise((resolve, reject) => {
     try {
-      const isJson = req.headers['content-type'] === 'application/json'
+      const isJson = headers[HTTP2_HEADER_CONTENT_TYPE] === 'application/json'
 
       const bodyParts = []
 
-      req.on('data', chunk => {
+      stream.on('data', chunk => {
         bodyParts.push(chunk)
       })
 
-      req.on('end', () => {
+      stream.on('end', () => {
         let body = Buffer.concat(bodyParts).toString()
 
         if (isJson) {
@@ -29,8 +35,8 @@ export const body = req =>
         resolve(body)
       })
 
-      req.on('error', reject)
+      stream.on('error', reject)
     } catch (e) {
-      return e
+      return reject(e)
     }
   })
