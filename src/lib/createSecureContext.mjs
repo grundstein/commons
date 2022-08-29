@@ -4,7 +4,8 @@ import tls from 'tls'
 import fs from '@magic/fs'
 
 /*
- * TODO: rewrite this function in rust to make sure we can instantly forget the contents of the secret files.
+ * TODO: rewrite this function in rust
+ * to make sure we can instantly forget the contents of the secret files.
  */
 const getDomainContext =
   ({ certDir, host }) =>
