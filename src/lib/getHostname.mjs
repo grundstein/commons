@@ -1,10 +1,9 @@
-export const getHostname = req => {
-  const { headers, hostname } = req
-  const host = headers.host || headers['x-forwarded-for'] || hostname || ''
+export const getHostname = headers => {
+  const authority = headers['x-forwarded-for'] || headers[':authority'] || headers.host
 
-  if (host.includes(':')) {
-    return host.split(':')[0]
+  if (authority.includes(':')) {
+    return authority.split(':')[0]
   }
 
-  return host
+  return authority
 }

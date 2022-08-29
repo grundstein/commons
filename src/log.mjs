@@ -1,23 +1,22 @@
+import http2 from 'node:http2'
+
 import magicLog from '@magic/log'
 
 import { getCurrentDate } from './lib/getCurrentDate.mjs'
 import { getRequestDuration } from './lib/getRequestDuration.mjs'
 import { getClientIp } from './lib/getClientIp.mjs'
 
-const request = (req, res, { time, type = 'request', getFullIp = false }) => {
-  const { statusCode } = res
-  const { url } = req
-
+const request = (stream, headers, { head, time, type = 'request', getFullIp = false }) => {
   const duration = getRequestDuration(time)
 
   const timeData = getCurrentDate()
 
-  const clientIp = getClientIp(req, getFullIp)
+  const clientIp = getClientIp(stream, getFullIp)
 
   const response = [
     '{',
     ' "code": "',
-    statusCode,
+    head[http2.constants.HTTP2_HEADER_STATUS],
     '", ',
     '"date": "',
     timeData.date,
@@ -32,7 +31,7 @@ const request = (req, res, { time, type = 'request', getFullIp = false }) => {
     type,
     '", ',
     '"path": "',
-    url,
+    headers[http2.constants.HTTP2_HEADER_PATH],
     '", ',
     '"ip": "',
     clientIp,

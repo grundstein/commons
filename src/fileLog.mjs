@@ -1,13 +1,14 @@
-import path from 'path'
-import { createWriteStream } from 'fs'
+import http2 from 'node:http2'
+import path from 'node:path'
+import { createWriteStream } from 'node:fs'
 
 import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
 
 const request =
   cons =>
-  (req, res, { time, type = 'request' }) => {
-    const { statusCode } = res
-    const { url } = req
+  (headers, { time, type = 'request' }) => {
+    const statusCode = headers[http2.constants.HTTP2_HEADER_STATUS]
+    const url = headers[http2.constants.HTTP2_HEADER_PATH]
 
     const duration = getRequestDuration(time)
 

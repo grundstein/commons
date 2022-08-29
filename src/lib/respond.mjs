@@ -1,24 +1,34 @@
+import http2 from 'node:http2'
+
 import log from '../log.mjs'
 
-export const respond = (req, res, payload = {}) => {
-  const {
+const {
+  HTTP2_HEADER_STATUS,
+  HTTP2_HEADER_CONTENT_ENCODING,
+  HTTP2_HEADER_CONTENT_LENGTH,
+  HTTP2_HEADER_CONTENT_TYPE,
+} = http2.constants
+
+export const respond = (stream, headers, payload = {}) => {
+  let {
     body = '500 - Server Error',
     code = 500,
-    headers = [],
+    head = {},
     time = log.hrtime(),
     type = 'response',
     getFullIp = false,
   } = payload
 
-  const head = {
-    'Content-Type': 'text/plain; charset=utf-8',
-    'Content-Length': Buffer.byteLength(body),
-    'Content-Encoding': 'identity',
-    ...headers,
+  head = {
+    [HTTP2_HEADER_CONTENT_TYPE]: 'text/plain; charset=utf-8',
+    [HTTP2_HEADER_CONTENT_LENGTH]: Buffer.byteLength(body),
+    [HTTP2_HEADER_CONTENT_ENCODING]: 'identity',
+    [HTTP2_HEADER_STATUS]: code,
+    ...head,
   }
 
-  res.writeHead(code, head)
-  res.end(body)
+  stream.respond(head)
+  stream.end(body)
 
-  log.server.request(req, res, { time, type, getFullIp })
+  log.server.request(stream, headers, { head, time, type, getFullIp })
 }

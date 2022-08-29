@@ -1,10 +1,19 @@
-import { is } from '@magic/types'
+import http2 from 'node:http2'
 
-export const denyRequest = (req = {}) => {
-  const { url = '', socket } = req
+import is from '@magic/types'
+
+const { HTTP2_HEADER_PATH } = http2.constants
+
+export const denyRequest = (stream, headers) => {
+  if (!headers) {
+    return true
+  }
+
+  const url = headers[HTTP2_HEADER_PATH]
 
   /*
-   * if the req.url does not exist, start with '/' or includes '://',
+   * if the url does not exist, does not start with '/'
+   * or if it includes '://',
    * something fishy is going on for sure,
    * let's catch that case and do nothing in response.
    */
@@ -12,12 +21,12 @@ export const denyRequest = (req = {}) => {
     /*
      * disconnect from the client.
      */
-    if (is.fn(socket?.destroy)) {
-      socket.destroy()
+    if (is.fn(stream?.destroy)) {
+      stream.destroy()
     }
 
     /*
-     * Make sure we return here,
+     * Make sure we return true here,
      * this keeps everyone else's requests serve fine
      * even if this function is hammered and the cpu is at 100%.
      */
