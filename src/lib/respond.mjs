@@ -27,8 +27,8 @@ export const respond = (stream, headers, payload = {}) => {
     ...head,
   }
 
+  log.server.request(stream, headers, { head, time, type, getFullIp })
+
   stream.respond(head)
   stream.end(body)
-
-  log.server.request(stream, headers, { head, time, type, getFullIp })
 }
