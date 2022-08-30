@@ -1,6 +1,7 @@
 import http2 from 'node:http2'
 
 import magicLog from '@magic/log'
+import is from '@magic/types'
 
 import { getCurrentDate } from './lib/getCurrentDate.mjs'
 import { getRequestDuration } from './lib/getRequestDuration.mjs'
@@ -42,7 +43,14 @@ const request = (stream, headers, options = {}) => {
   magicLog(response)
 }
 
-const error = (...msgs) => {
+const error = (err, ...msgs) => {
+  let msg = ''
+  if (is.error(err)) {
+    msg = `${err.code}: ${err.msg} ${msgs.join(' ')}`
+  } else {
+    msg = [err, ...msgs].join(' ')
+  }
+
   const { time, date } = getCurrentDate()
 
   const response = [
@@ -55,7 +63,7 @@ const error = (...msgs) => {
     time,
     '", ',
     '"msg": "',
-    msgs.join(' '),
+    msg,
     '" ',
     '}',
   ].join('')
