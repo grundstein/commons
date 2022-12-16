@@ -4,12 +4,23 @@ import is from '@magic/types'
 
 const { HTTP2_HEADER_PATH } = http2.constants
 
-export const denyRequest = (stream, headers) => {
-  if (!headers) {
-    return true
-  }
+export const denyRequest = (stream = {}, headers = {}) => {
+  // http 1.1
+  let url = ''
+  if (stream && stream.socket && stream.url) {
+    // our "stream" is actually a Request object
+    url = stream.url
+    stream = stream.socket
+  } else {
+    /*
+     * true http2 request here.
+     */
+    if (!headers) {
+      return true
+    }
 
-  const url = headers[HTTP2_HEADER_PATH]
+    url = headers[HTTP2_HEADER_PATH]
+  }
 
   /*
    * if the url does not exist, does not start with '/'
