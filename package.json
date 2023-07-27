@@ -1,7 +1,7 @@
 {
   "name": "@grundstein/commons",
   "version": "0.0.10",
-  "author": "Wizards & Witches",
+  "author": "SystemKollektiv",
   "homepage": "https://docs.grundstein.it/commons",
   "license": "AGPL-3.0",
   "description": "@grundstein/commons. shared library functionality, server middleware, lib and init functions.",
@@ -49,6 +49,10 @@
     {
       "name": "jascha ehrenreich",
       "github": "jaeh"
+    },
+    {
+      "name": "litto",
+      "github": "mslitto"
     }
   ]
 }
