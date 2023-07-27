@@ -27,7 +27,7 @@ export const denyRequest = (stream, headers) => {
 
     /*
      * Make sure we return true here,
-     * this keeps everyone else's requests serve fine
+     * this lets everyone else's requests serve fine
      * even if this function is hammered and the cpu is at 100%.
      */
     return true
