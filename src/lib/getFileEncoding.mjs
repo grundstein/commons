@@ -1,4 +1,4 @@
-export const getFileEncoding = (file, acceptEncoding) => {
+export const getFileEncoding = (file = {}, acceptEncoding = []) => {
   let encoding = 'buffer'
 
   if (acceptEncoding.length) {

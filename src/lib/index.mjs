@@ -1,5 +1,6 @@
 export { cleanIpAddress } from './cleanIpAddress.mjs'
 export { createServer } from './createServer.mjs'
+export { createServerHTTP1 } from './createServerHTTP1.mjs'
 export { createSecureContext } from './createSecureContext.mjs'
 export { denyRequest } from './denyRequest.mjs'
 export { enhanceRequest } from './enhanceRequest.mjs'
