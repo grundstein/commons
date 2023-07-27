@@ -25,7 +25,7 @@ export class MemCache {
 
     const osFreeMem = os.freemem()
     // get free memory in bytes, roughly what our val.length equals too.
-    const allFreeMem = (osFreeMem / 1024)
+    const allFreeMem = osFreeMem / 1024
 
     // make sure we both have val.length * 5 and more than 100 mb of free ram
     // before adding a key <> value pair

@@ -8,7 +8,7 @@ import { getRequestDuration } from './lib/getRequestDuration.mjs'
 import { getClientIp } from './lib/getClientIp.mjs'
 
 const request = (stream, headers, options = {}) => {
-  const  { head, time, type = 'request', getFullIp = false } = options
+  const { head, time, type = 'request', getFullIp = false } = options
   const duration = getRequestDuration(time)
 
   const timeData = getCurrentDate()
