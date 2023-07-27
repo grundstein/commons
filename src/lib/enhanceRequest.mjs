@@ -1,7 +1,7 @@
 import log from '../log.mjs'
 
-export const enhanceRequest = (req = {}) => {
-  req.startTime = log.hrtime()
+export const enhanceRequest = (stream = {}) => {
+  stream.startTime = log.hrtime()
 
-  return req
+  return stream
 }

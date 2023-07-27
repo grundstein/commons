@@ -1,17 +1,25 @@
+import http2 from 'node:http2'
+
 import { is, tryCatch } from '@magic/test'
 
 import { denyRequest } from '../../src/lib/denyRequest.mjs'
 
+const { HTTP2_HEADER_PATH } = http2.constants
+
+const headers = {
+  [HTTP2_HEADER_PATH]: '',
+}
+
 const testSocketDestroy = () => {
   let called = false
 
-  const socket = {
+  const stream = {
     destroy: () => {
       called = true
     },
   }
 
-  denyRequest({ socket, url: '' })
+  denyRequest(stream, headers)
 
   return called
 }
@@ -19,32 +27,32 @@ const testSocketDestroy = () => {
 export default [
   { fn: denyRequest, expect: true, info: 'denyRequest denies if called without argument.' },
   {
-    fn: denyRequest({}),
+    fn: denyRequest({}, {}),
     expect: true,
     info: 'denyRequest denies if called with empty object argument.',
   },
   {
-    fn: denyRequest({ url: '' }),
+    fn: denyRequest({}, { [HTTP2_HEADER_PATH]: '' }),
     expect: true,
-    info: 'denyRequest denies if called with empty req.url',
+    info: 'denyRequest denies if called with empty url',
   },
   {
-    fn: denyRequest({ url: 'http://testing.com' }),
+    fn: denyRequest({}, { [HTTP2_HEADER_PATH]: 'http://testing.com' }),
     expect: true,
-    info: 'denyRequest denies if req.url includes ://',
+    info: 'denyRequest denies if url includes ://',
   },
   {
-    fn: denyRequest({ url: 'testing' }),
+    fn: denyRequest({}, { [HTTP2_HEADER_PATH]: 'testing' }),
     expect: true,
-    info: 'denyRequest denies if req.url does not start with a /',
+    info: 'denyRequest denies if url does not start with a /',
   },
   {
-    fn: denyRequest({ url: '/' }),
+    fn: denyRequest({}, { [HTTP2_HEADER_PATH]: '/' }),
     expect: false,
     info: 'denyRequest denies if called with empty object argument.',
   },
   {
-    fn: denyRequest({ url: '/test/?query=true&t=1' }),
+    fn: denyRequest({}, { [HTTP2_HEADER_PATH]: '/test/?query=true&t=1' }),
     expect: false,
     info: 'denyRequest handles ? query parameters.',
   },

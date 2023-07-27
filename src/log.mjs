@@ -1,23 +1,24 @@
+import http2 from 'node:http2'
+
 import magicLog from '@magic/log'
+import is from '@magic/types'
 
 import { getCurrentDate } from './lib/getCurrentDate.mjs'
 import { getRequestDuration } from './lib/getRequestDuration.mjs'
 import { getClientIp } from './lib/getClientIp.mjs'
 
-const request = (req, res, { time, type = 'request', getFullIp = false }) => {
-  const { statusCode } = res
-  const { url } = req
-
+const request = (stream, headers, options = {}) => {
+  const  { head, time, type = 'request', getFullIp = false } = options
   const duration = getRequestDuration(time)
 
   const timeData = getCurrentDate()
 
-  const clientIp = getClientIp(req, getFullIp)
+  const clientIp = getClientIp(stream, getFullIp)
 
   const response = [
     '{',
     ' "code": "',
-    statusCode,
+    head[http2.constants.HTTP2_HEADER_STATUS],
     '", ',
     '"date": "',
     timeData.date,
@@ -32,7 +33,7 @@ const request = (req, res, { time, type = 'request', getFullIp = false }) => {
     type,
     '", ',
     '"path": "',
-    url,
+    headers[http2.constants.HTTP2_HEADER_PATH],
     '", ',
     '"ip": "',
     clientIp,
@@ -42,7 +43,14 @@ const request = (req, res, { time, type = 'request', getFullIp = false }) => {
   magicLog(response)
 }
 
-const error = (...msgs) => {
+const error = (err, ...msgs) => {
+  let msg = ''
+  if (is.error(err)) {
+    msg = `${err.code}: ${err.msg} ${msgs.join(' ')}`
+  } else {
+    msg = [err, ...msgs].join(' ')
+  }
+
   const { time, date } = getCurrentDate()
 
   const response = [
@@ -55,7 +63,7 @@ const error = (...msgs) => {
     time,
     '", ',
     '"msg": "',
-    msgs.join(' '),
+    msg,
     '" ',
     '}',
   ].join('')
