@@ -33,7 +33,7 @@ exports [@magic/fs](https://magic.github.io/fs/), a promisified version of fs wi
 
 #### commons.is
 
-exports [@magic/is](https://magic/github.io/is/), a comprehensive runtime type checking library.
+exports [@magic/types](https://magic.github.io/types/), a comprehensive runtime type checking library.
 
 #### commons.log
 
