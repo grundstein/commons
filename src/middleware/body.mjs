@@ -11,20 +11,31 @@ import http2 from 'node:http2'
 
 const { HTTP2_HEADER_CONTENT_TYPE } = http2.constants
 
-export const body = (stream, headers) =>
+export const body = (stream, headers, options = {}) =>
   new Promise((resolve, reject) => {
-    log.error('E_BODY_CHUNK_SIZE_NOT_IMPLEMENTED', 'the post request body currently has no size limitation applied to it. please add it before using this middleware!')
+    const { maxBodySize = 10 * 1024 } = options
 
     try {
       const isJson = headers[HTTP2_HEADER_CONTENT_TYPE] === 'application/json'
 
-      const bodyParts = []
+      let bodyParts = []
+      let bodyLength = 0
 
       stream.on('data', chunk => {
         bodyParts.push(chunk)
+        bodyLength += chunk.length
+        if (bodyLength > maxBodySize) {
+          bodyParts = []
+          stream.end()
+        }
       })
 
       stream.on('end', () => {
+        if (!bodyParts.length) {
+          const e = new Error('E_MAX_BODY_SIZE: POST request body was too big.')
+          resolve(e)
+        }
+
         let body = Buffer.concat(bodyParts).toString()
 
         if (isJson) {
@@ -32,7 +43,7 @@ export const body = (stream, headers) =>
             body = JSON.parse(body)
           } catch (e) {
             log.server.error(e)
-            reject(e)
+            resolve(e)
             return
           }
         }
