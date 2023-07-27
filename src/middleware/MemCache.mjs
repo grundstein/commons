@@ -27,9 +27,9 @@ export class MemCache {
     // get free memory in bytes, roughly what our val.length equals too.
     const allFreeMem = (osFreeMem / 1024)
 
-    // make sure we either have val.length * 5 or more than 100 mb of free ram
+    // make sure we both have val.length * 5 and more than 100 mb of free ram
     // before adding a key <> value pair
-    if (allFreeMem > val.length || allFreeMem > hundredMegaBytes) {
+    if (allFreeMem > val.length && allFreeMem > hundredMegaBytes) {
       this.data[key] = val
       return true
     }
