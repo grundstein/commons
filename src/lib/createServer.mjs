@@ -44,6 +44,8 @@ export const createServer = async (config, handler) => {
       return
     }
 
+    // this would be a place to register middlewares if we need them.
+
     return handler(req, res)
   }
 
@@ -54,6 +56,5 @@ export const createServer = async (config, handler) => {
 
   const listener = middleware.listener({ host, port, startTime })
   server.listen(port, host, listener)
-
   return server
 }
