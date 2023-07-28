@@ -1,3 +1,7 @@
+import http2 from 'node:http2'
+
+export const constants = http2.constants
+
 export { default as fs } from '@magic/fs'
 export { default as cli } from '@magic/cli'
 export { default as error } from '@magic/error'
