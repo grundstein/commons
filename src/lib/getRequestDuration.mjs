@@ -3,7 +3,7 @@ export const getRequestDuration = time => {
   const [s, ns] = process.hrtime(time)
 
   // convert seconds to nanoseconds.
-  let span = (s * 1_000_000) + (ns / 1_000)
+  let span = s * 1_000_000 + ns / 1_000
   let unit = 'ns'
 
   if (span > 1500000) {
