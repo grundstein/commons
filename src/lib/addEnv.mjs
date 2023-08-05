@@ -1,4 +1,4 @@
-export const addEnv = async (file = '/home/grundstein/environment.js') => {
+export const addEnv = async (file = '/home/grundstein/environment.mjs') => {
   /*
    * copy process.env to make sure we do not pollute bash env vars
    */
