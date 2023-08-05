@@ -8,7 +8,7 @@ import { createSecureContext } from './createSecureContext.mjs'
 import { denyRequest } from './denyRequest.mjs'
 
 export const createServer = async (config, handler) => {
-  const defaultCertDir = path.join('node_modules', '@grundstein', 'commons', 'src', 'certificates')
+  const defaultCertDir = path.join(process.cwd(), 'node_modules', '@grundstein', 'commons', 'src', 'certificates')
 
   const {
     certDir = defaultCertDir,
