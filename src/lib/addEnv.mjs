@@ -8,7 +8,7 @@ export const addEnv = async (file = '/home/grundstein/environment.mjs') => {
    * add file contents to the env variables
    */
   try {
-    const { env: environment } = await import(file)
+    const environment = await import(file)
 
     return {
       ...environment,
