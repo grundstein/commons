@@ -20,10 +20,6 @@ export const createServer = async (config, handler) => {
   const options = {}
 
   try {
-    let absDir = certDir
-    if (!path.isAbsolute(absDir)) {
-      absDir = path.join(process.cwd(), absDir)
-    }
     const secureContext = await createSecureContext({ certDir, host })
 
     options.SNICallback = (domain, cb) => {
