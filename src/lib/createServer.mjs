@@ -7,9 +7,6 @@ import * as middleware from '../../middleware.mjs'
 import { createSecureContext } from './createSecureContext.mjs'
 import { denyRequest } from './denyRequest.mjs'
 
-const { HTTP2_HEADER_METHOD, HTTP2_HEADER_PATH, HTTP2_HEADER_STATUS, HTTP2_HEADER_CONTENT_TYPE } =
-  http2.constants
-
 export const createServer = async (config, handler) => {
   const defaultCertDir = path.join('node_modules', '@grundstein', 'commons', 'src', 'certificates')
 
