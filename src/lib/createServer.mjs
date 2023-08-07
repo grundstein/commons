@@ -8,19 +8,28 @@ import { createSecureContext } from './createSecureContext.mjs'
 import { denyRequest } from './denyRequest.mjs'
 
 export const createServer = async (config, handler) => {
-  const defaultCertDir = path.join(process.cwd(), 'node_modules', '@grundstein', 'commons', 'src', 'certificates')
+  const defaultCertDir = path.join(
+    process.cwd(),
+    'node_modules',
+    '@grundstein',
+    'commons',
+    'src',
+    'certificates',
+  )
 
   const {
     certDir = defaultCertDir,
     host = 'localhost',
     port = '2350',
     startTime = log.hrtime(),
+    keyFileName = 'privkey.pem',
+    chainFileName = 'cert.pem',
   } = config
 
   const options = {}
 
   try {
-    const secureContext = await createSecureContext({ certDir, host })
+    const secureContext = await createSecureContext({ certDir, host, keyFileName, chainFileName })
 
     options.SNICallback = (domain, cb) => {
       const apex = domain.split('.').slice(-2).join('.')
