@@ -113,7 +113,7 @@ const warn = (...msgs) => {
   magicLog(response)
 }
 
-const log = magicLog
+export const log = magicLog
 
 log.server = {
   request,
