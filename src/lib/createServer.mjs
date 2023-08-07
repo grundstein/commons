@@ -23,7 +23,7 @@ export const createServer = async (config, handler) => {
     port = '2350',
     startTime = log.hrtime(),
     keyFileName = 'privkey.pem',
-    chainFileName = 'cert.pem',
+    chainFileName = 'fullchain.pem',
   } = config
 
   const options = {}

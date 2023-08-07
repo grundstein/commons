@@ -14,7 +14,7 @@ const getDomainContext = async ({
   host,
   domain,
   keyFileName = 'privkey.pem',
-  chainFileName = 'cert.pem',
+  chainFileName = 'fullchain.pem',
 }) => {
   if (domain === certDir) {
     return false
