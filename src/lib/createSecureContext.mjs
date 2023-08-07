@@ -9,7 +9,13 @@ import fs from '@magic/fs'
  * TODO: rewrite this function in a memory-managing language
  * to make sure we can instantly forget the contents of the secret files.
  */
-const getDomainContext = async ({ certDir, host, domain, keyFileName = 'privkey.pem', chainFileName = 'cert.pem'}) => {
+const getDomainContext = async ({
+  certDir,
+  host,
+  domain,
+  keyFileName = 'privkey.pem',
+  chainFileName = 'cert.pem',
+}) => {
   if (domain === certDir) {
     return false
   }
