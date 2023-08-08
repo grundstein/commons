@@ -26,8 +26,7 @@ export const getHostname = headers => {
   }
 
   // http 2
-  const authority =
-    headers['x-forwarded-for'] || headers[HTTP2_HEADER_AUTHORITY] || headers.host || ''
+  const authority = headers[HTTP2_HEADER_AUTHORITY] || headers.host || ''
 
   if (authority.includes(',')) {
     authority = authority.split(',')[0]
