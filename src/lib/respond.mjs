@@ -30,5 +30,10 @@ export const respond = (stream, headers, payload = {}) => {
   log.server.request(stream, headers, { head, time, type, getFullIp })
 
   stream.respond(head)
-  stream.end(body)
+
+  if (body) {
+    stream.write(body)
+  }
+
+  stream.end()
 }
