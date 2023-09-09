@@ -31,12 +31,12 @@
   "dependencies": {
     "@magic/cli": "0.0.46",
     "@magic/error": "0.0.17",
-    "@magic/fs": "0.0.28",
+    "@magic/fs": "0.0.29",
     "@magic/log": "0.1.18",
     "@magic/types": "0.1.23"
   },
   "devDependencies": {
-    "@magic/format": "0.0.51",
+    "@magic/format": "0.0.52",
     "@magic/test": "0.2.18"
   },
   "keywords": [
