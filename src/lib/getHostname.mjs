@@ -29,9 +29,15 @@ export const getHostname = headers => {
   const authority = headers[HTTP2_HEADER_AUTHORITY] || headers.host || ''
 
   if (authority.includes(',')) {
+    /*
+     * the first authority in a list is our origin
+     */
     authority = authority.split(',')[0]
   }
 
+  /*
+   * remove port if it exists
+   */
   if (authority.includes(':')) {
     return authority.split(':')[0]
   }
