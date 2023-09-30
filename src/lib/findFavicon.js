@@ -1,3 +1,5 @@
+import path from 'node:path'
+
 import fs from '@magic/fs'
 
 export const findFavicon = async () => {
@@ -22,7 +24,13 @@ export const findFavicon = async () => {
   if (faviconPath) {
     const faviconContent = await fs.readFile(faviconPath)
 
-    return faviconContent
+    return {
+      code: 200,
+      body: faviconContent,
+      headers: {
+        [constants.HTTP2_HEADER_CONTENT_TYPE]: 'image/vnd.microsoft.icon',
+      },
+    }
   }
 
   return false
