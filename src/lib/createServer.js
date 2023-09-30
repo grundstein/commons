@@ -1,11 +1,15 @@
 import http2 from 'node:http2'
-import path from 'path'
+import path from 'node:path'
 
 import log from '../log.js'
 import * as middleware from '../../middleware.js'
 
 import { createSecureContext } from './createSecureContext.js'
 import { denyRequest } from './denyRequest.js'
+import { respond } from './respond.js'
+import { findFavicon } from './findFavicon.js'
+
+const { constants } = http2
 
 export const createServer = async (config, handler) => {
   const defaultCertDir = path.join(
@@ -40,7 +44,16 @@ export const createServer = async (config, handler) => {
     throw e
   }
 
+
+  const faviconContent = await findFavicon()
+
   const wrappedHandler = (stream, headers, flags) => {
+    const pathname = headers[constants.HTTP2_HEADER_PATH]
+
+    if (faviconContent && pathname === '/favicon.ico') {
+      return respond(stream, headers, faviconContent)
+    }
+
     if (denyRequest(stream, headers, flags)) {
       return
     }
