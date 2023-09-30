@@ -10,12 +10,16 @@ const http1Headers = {
 }
 
 const xForwardedFor = {
-  'x-forwarded-for': 'x-forwarded-for:8000',
-  authority: 'authority',
+  headers: {
+    'x-forwarded-for': 'x-forwarded-for:8000',
+    authority: 'authority',
+  }
 }
 
 const xForwardedForWithPort = {
-  'x-forwarded-for': 'x-forwarded-for:8000',
+  headers: {
+    'x-forwarded-for': 'x-forwarded-for:8000',
+  },
 }
 
 export default [
@@ -27,7 +31,7 @@ export default [
     info: 'getHostname: x-forwarded-for is highest authority for http2.',
   },
   {
-    fn: getHostname({ headers: xForwardedFor }),
+    fn: getHostname(xForwardedFor),
     expect: 'x-forwarded-for',
     info: 'getHostname: x-forwarded-for is highest authority for http1.1.',
   },
