@@ -6,6 +6,7 @@
   "license": "AGPL-3.0",
   "description": "@grundstein/commons. shared library functionality, server middleware, lib and init functions.",
   "main": "src/index.js",
+  "type": "module",
   "engines": {
     "node": ">=14.14.0"
   },
