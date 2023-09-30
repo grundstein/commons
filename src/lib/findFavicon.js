@@ -1,29 +1,42 @@
+import http2 from 'node:http2'
 import path from 'node:path'
 
 import fs from '@magic/fs'
 
+const { constants } = http2
+
 export const findFavicon = async () => {
-  const localFaviconPath = path.join(process.cwd(), 'src', 'favicon.ico')
-  const localFaviconExists = await fs.exists(localFaviconPath)
+  const srcDir = path.join(process.cwd(), 'src')
+  const favName = 'favicon.ico'
 
-  const localStaticFaviconPath = path.join(process.cwd(), 'src', 'static', 'favicon.ico')
-  const localStaticFaviconExists = await fs.exists(localStaticFaviconPath)
+  const paths = [
+    path.join(srcDir, favName),
+    path.join(srcDir, 'static', favName),
+    path.join(srcDir, 'assets', 'static', favName),
+    path.join('.', 'src', 'static', favName),
+  ]
 
-  const defaultFaviconPath = path.join('.', 'src', 'favicon.ico')
-  const defaultFaviconExists = await fs.exists(defaultFaviconPath)
+  let faviconContent
 
-  let faviconPath
-  if (localFaviconExists) {
-    faviconPath = localFaviconPath
-  } else if (localStaticFaviconExists) {
-    faviconPath = localStaticFaviconPath
-  } else if (defaultFaviconExists) {
-    faviconPath = defaultFaviconPath
+  for (let i = 0; i < paths.length; i++) {
+    const p = paths[i]
+
+    try {
+      faviconContent = await fs.readFile(p)
+      /*
+       * We found a favicon, lets break the loop
+       */
+      break
+    } catch (e) {
+      if (e.code !== 'ENOENT') {
+        throw e
+      }
+
+      faviconContent = undefined
+    }
   }
 
-  if (faviconPath) {
-    const faviconContent = await fs.readFile(faviconPath)
-
+  if (faviconContent) {
     return {
       code: 200,
       body: faviconContent,
