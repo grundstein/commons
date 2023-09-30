@@ -13,7 +13,7 @@ export const respond = (stream, headers, payload = {}) => {
   let {
     body = '500 - Server Error',
     code = 500,
-    headers : responseHeaders = {},
+    headers: responseHeaders = {},
     time = log.hrtime(),
     type = 'response',
     getFullIp = false,

@@ -8,7 +8,7 @@ import { getRequestDuration } from './lib/getRequestDuration.js'
 import { getClientIp } from './lib/getClientIp.js'
 
 const request = (stream, headers = {}, options = {}) => {
-  const { headers : responseHeaders = {}, time, type = 'request', getFullIp = false } = options
+  const { headers: responseHeaders = {}, time, type = 'request', getFullIp = false } = options
   const duration = getRequestDuration(time)
 
   const timeData = getCurrentDate()

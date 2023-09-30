@@ -44,7 +44,6 @@ export const createServer = async (config, handler) => {
     throw e
   }
 
-
   const faviconContent = await findFavicon()
 
   const wrappedHandler = (stream, headers, flags) => {

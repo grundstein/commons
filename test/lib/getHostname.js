@@ -13,7 +13,7 @@ const xForwardedFor = {
   headers: {
     'x-forwarded-for': 'x-forwarded-for:8000',
     authority: 'authority',
-  }
+  },
 }
 
 const xForwardedForWithPort = {
