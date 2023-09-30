@@ -13,23 +13,26 @@ export const respond = (stream, headers, payload = {}) => {
   let {
     body = '500 - Server Error',
     code = 500,
-    head = {},
+    headers : responseHeaders = {},
     time = log.hrtime(),
     type = 'response',
     getFullIp = false,
+    json = false,
   } = payload
 
-  head = {
-    [HTTP2_HEADER_CONTENT_TYPE]: 'text/plain; charset=utf-8',
+  const contentType = json ? 'application/json' : 'text/plain; charset=utf-8'
+
+  responseHeaders = {
+    [HTTP2_HEADER_CONTENT_TYPE]: contentType,
     [HTTP2_HEADER_CONTENT_LENGTH]: Buffer.byteLength(body),
     [HTTP2_HEADER_CONTENT_ENCODING]: 'identity',
     [HTTP2_HEADER_STATUS]: code,
-    ...head,
+    ...responseHeaders,
   }
 
-  log.server.request(stream, headers, { head, time, type, getFullIp })
+  log.server.request(stream, headers, { headers: responseHeaders, time, type, getFullIp })
 
-  stream.respond(head)
+  stream.respond(responseHeaders)
 
   if (body) {
     stream.write(body)
