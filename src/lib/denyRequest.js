@@ -6,10 +6,10 @@ const { HTTP2_HEADER_PATH } = http2.constants
 
 export const denyRequest = (stream = {}, headers = {}) => {
   // http 1.1
-  let url = ''
+  let pathname = ''
   if (stream && stream.socket && stream.url) {
     // our "stream" is actually a Request object
-    url = stream.url
+    pathname = stream.url
     stream = stream.socket
   } else {
     /*
@@ -19,16 +19,16 @@ export const denyRequest = (stream = {}, headers = {}) => {
       return true
     }
 
-    url = headers[HTTP2_HEADER_PATH]
+    pathname = headers[HTTP2_HEADER_PATH]
   }
 
   /*
-   * if the url does not exist, does not start with '/'
+   * if the pathname does not exist, does not start with '/'
    * or if it includes '://',
    * something fishy is going on for sure,
    * let's catch that case and do nothing in response.
    */
-  if (is.empty(url) || !url.startsWith('/') || url.includes('://')) {
+  if (is.empty(pathname) || !pathname.startsWith('/') || pathname.includes('://')) {
     /*
      * disconnect from the client.
      */
