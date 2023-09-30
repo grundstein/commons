@@ -1,8 +1,8 @@
 import http2 from 'node:http2'
 import path from 'node:path'
 
-import { getFileEncoding } from './getFileEncoding.mjs'
-import log from '../log.mjs'
+import { getFileEncoding } from './getFileEncoding.js'
+import log from '../log.js'
 
 const {
   HTTP2_HEADER_CONTENT_TYPE,

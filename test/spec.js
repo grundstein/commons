@@ -2,10 +2,10 @@ import { is } from '@magic/test'
 
 import types from '@magic/types'
 
-import { log, lib, middleware, is as libIs } from '../src/index.mjs'
+import { log, lib, middleware, is as libIs } from '../src/index.js'
 
-import * as exportedLib from '../lib.mjs'
-import * as exportedMiddleware from '../middleware.mjs'
+import * as exportedLib from '../lib.js'
+import * as exportedMiddleware from '../middleware.js'
 
 export default [
   { fn: is.object(lib), info: 'lib is an object' },

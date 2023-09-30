@@ -1,6 +1,6 @@
 import http2 from 'node:http2'
 
-import log from '../log.mjs'
+import log from '../log.js'
 
 const {
   HTTP2_HEADER_STATUS,

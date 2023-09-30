@@ -1,4 +1,4 @@
-import { getFileEncoding } from '../../src/lib/getFileEncoding.mjs'
+import { getFileEncoding } from '../../src/lib/getFileEncoding.js'
 
 const brFile = {
   br: 'testing',

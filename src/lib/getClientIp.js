@@ -1,5 +1,5 @@
-import { is } from '../is.mjs'
-import { cleanIpAddress } from './cleanIpAddress.mjs'
+import { is } from '../is.js'
+import { cleanIpAddress } from './cleanIpAddress.js'
 
 /**
  * Returns the IP address from the headers, if it exists.

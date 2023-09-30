@@ -1,11 +1,11 @@
 import http2 from 'node:http2'
 import path from 'path'
 
-import log from '../log.mjs'
-import * as middleware from '../../middleware.mjs'
+import log from '../log.js'
+import * as middleware from '../../middleware.js'
 
-import { createSecureContext } from './createSecureContext.mjs'
-import { denyRequest } from './denyRequest.mjs'
+import { createSecureContext } from './createSecureContext.js'
+import { denyRequest } from './denyRequest.js'
 
 export const createServer = async (config, handler) => {
   const defaultCertDir = path.join(

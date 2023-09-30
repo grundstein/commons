@@ -1,6 +1,6 @@
 import { is } from '@magic/test'
 
-import { getRequestDuration } from '../../src/lib/getRequestDuration.mjs'
+import { getRequestDuration } from '../../src/lib/getRequestDuration.js'
 
 export default [
   {

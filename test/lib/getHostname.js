@@ -1,6 +1,6 @@
 import { is } from '@magic/test'
 
-import { getHostname } from '../../src/lib/getHostname.mjs'
+import { getHostname } from '../../src/lib/getHostname.js'
 
 const http1Headers = {
   hostname: 'toplevelhostname',

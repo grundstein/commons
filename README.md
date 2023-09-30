@@ -21,8 +21,8 @@ TODO: Add usage examples.
 ```
 import commons, { fs, is, lib, log, middleware } from '@grundstein/commons'
 
-import lib from '@grundstein/commons/lib.mjs'
-import middleware from '@grundstein/commons/middleware.mjs'
+import lib from '@grundstein/commons/lib.js'
+import middleware from '@grundstein/commons/middleware.js'
 
 commons.log.info('commons are usable now.')
 ```

@@ -1,4 +1,4 @@
-import { cleanIpAddress } from '../../src/lib/cleanIpAddress.mjs'
+import { cleanIpAddress } from '../../src/lib/cleanIpAddress.js'
 
 export default [
   { fn: cleanIpAddress, expect: undefined, info: 'cleanIpAddress: empty argument gets returned' },

@@ -2,7 +2,7 @@ import http2 from 'node:http2'
 
 import { is, tryCatch } from '@magic/test'
 
-import { denyRequest } from '../../src/lib/denyRequest.mjs'
+import { denyRequest } from '../../src/lib/denyRequest.js'
 
 const { HTTP2_HEADER_PATH } = http2.constants
 

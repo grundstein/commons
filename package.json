@@ -5,7 +5,7 @@
   "homepage": "https://docs.grundstein.it/commons",
   "license": "AGPL-3.0",
   "description": "@grundstein/commons. shared library functionality, server middleware, lib and init functions.",
-  "main": "src/index.mjs",
+  "main": "src/index.js",
   "engines": {
     "node": ">=14.14.0"
   },
@@ -18,8 +18,8 @@
   },
   "files": [
     "src",
-    "lib.mjs",
-    "middleware.mjs"
+    "lib.js",
+    "middleware.js"
   ],
   "repository": {
     "type": "git",

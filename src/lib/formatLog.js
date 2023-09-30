@@ -1,9 +1,9 @@
 import http2 from 'node:http2'
 
-import log from '../log.mjs'
+import log from '../log.js'
 
-import { getRequestDuration } from './getRequestDuration.mjs'
-import { getCurrentDate } from './getCurrentDate.mjs'
+import { getRequestDuration } from './getRequestDuration.js'
+import { getCurrentDate } from './getCurrentDate.js'
 
 const { HTTP2_HEADER_STATUS, HTTP2_HEADER_PATH } = http2.constants
 

@@ -3,11 +3,11 @@ import https from 'node:https'
 
 import fs from '@magic/fs'
 
-import log from '../log.mjs'
-import * as middleware from '../../middleware.mjs'
+import log from '../log.js'
+import * as middleware from '../../middleware.js'
 
-import { createSecureContext } from './createSecureContext.mjs'
-import { denyRequest } from './denyRequest.mjs'
+import { createSecureContext } from './createSecureContext.js'
+import { denyRequest } from './denyRequest.js'
 
 export const createServerHTTP1 = async (config, handler) => {
   const { certDir, host = 'localhost', port = '2350', startTime = log.hrtime() } = config

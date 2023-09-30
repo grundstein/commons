@@ -2,9 +2,9 @@ import path from 'path'
 
 import { fs, is } from '@magic/test'
 
-import { etags } from '../../src/lib/etags.mjs'
+import { etags } from '../../src/lib/etags.js'
 
-const indexHtmlPath = path.join(process.cwd(), 'src', 'index.mjs')
+const indexHtmlPath = path.join(process.cwd(), 'src', 'index.js')
 const stat = await fs.statSync(indexHtmlPath)
 const indexHtmlExpect = (stat.size + stat.mtimeMs).toString(36)
 
@@ -13,7 +13,7 @@ export default [
   {
     fn: async () => {
       const e = await etags('public')
-      return e({ file: 'src/index.mjs', stat })
+      return e({ file: 'src/index.js', stat })
     },
     expect: indexHtmlExpect,
     info: 'returns a function when called with empty argument',

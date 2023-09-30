@@ -1,6 +1,6 @@
 import { is } from '@magic/test'
 
-import { getCurrentDate } from '../../src/lib/getCurrentDate.mjs'
+import { getCurrentDate } from '../../src/lib/getCurrentDate.js'
 
 export default [
   {

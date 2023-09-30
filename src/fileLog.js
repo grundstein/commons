@@ -2,7 +2,7 @@ import http2 from 'node:http2'
 import path from 'node:path'
 import { createWriteStream } from 'node:fs'
 
-import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
+import { getCurrentDate, getRequestDuration } from './lib/index.js'
 
 const request =
   cons =>

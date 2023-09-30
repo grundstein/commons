@@ -1,4 +1,4 @@
-import { is } from '../src/is.mjs'
+import { is } from '../src/is.js'
 
 export default [
   { fn: is.ip('1.2.3.4'), expect: true, info: 'is.ip works for v4' },

@@ -1,6 +1,6 @@
 import http2 from 'node:http2'
 
-import { getClientIp } from '../../src/lib/getClientIp.mjs'
+import { getClientIp } from '../../src/lib/getClientIp.js'
 
 const { HTTP2_HEADER_X_FORWARDED_FOR } = http2.constants
 

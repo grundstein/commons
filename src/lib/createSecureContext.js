@@ -1,7 +1,7 @@
 import path from 'path'
 import tls from 'tls'
 
-import { log } from '../log.mjs'
+import { log } from '../log.js'
 
 import fs from '@magic/fs'
 

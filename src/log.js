@@ -3,9 +3,9 @@ import http2 from 'node:http2'
 import magicLog from '@magic/log'
 import is from '@magic/types'
 
-import { getCurrentDate } from './lib/getCurrentDate.mjs'
-import { getRequestDuration } from './lib/getRequestDuration.mjs'
-import { getClientIp } from './lib/getClientIp.mjs'
+import { getCurrentDate } from './lib/getCurrentDate.js'
+import { getRequestDuration } from './lib/getRequestDuration.js'
+import { getClientIp } from './lib/getClientIp.js'
 
 const request = (stream, headers = {}, options = {}) => {
   const { head = {}, time, type = 'request', getFullIp = false } = options

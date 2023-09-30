@@ -1,6 +1,6 @@
 import { is } from '@magic/test'
 
-import { enhanceRequest } from '../../src/lib/enhanceRequest.mjs'
+import { enhanceRequest } from '../../src/lib/enhanceRequest.js'
 
 export default [
   {

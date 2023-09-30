@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 
-import log from '../log.mjs'
+import log from '../log.js'
 
 export const getRandomId = () =>
   new Promise(resolve =>
