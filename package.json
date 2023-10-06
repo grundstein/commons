@@ -13,8 +13,8 @@
   "engineStrict": true,
   "scripts": {
     "start": "npm test",
-    "test": "t -p",
-    "cover": "t",
+    "test:fast": "t -p",
+    "test": "t",
     "format": "f -w"
   },
   "files": [
