@@ -47,7 +47,8 @@ export const createServer = async (config, handler) => {
    * osc and websocket servers might not want to answer via http.
    */
   if (handler) {
-    const handleStream = (stream, headers, flags) => wrapHandler({ handler, stream, headers, flags })
+    const handleStream = (stream, headers, flags) =>
+      wrapHandler({ handler, stream, headers, flags })
     server.on('stream', handleStream)
   }
 
