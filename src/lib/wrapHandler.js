@@ -2,7 +2,7 @@ import { denyRequest } from './denyRequest.js'
 import { findFavicon } from './findFavicon.js'
 import { respond } from './respond.js'
 
-export const wrapHandler = async ({ faviconContent, flags, handler, headers, stream }) => {
+export const wrapHandler = async ({ flags, handler, headers, stream }) => {
   if (!handler) {
     return
   }
