@@ -1,6 +1,7 @@
 export { slugify } from '@magic-libraries/slugify'
 
 export { addEnv } from './addEnv.js'
+export { anyToLowerCase } from './anyToLowerCase.js'
 export { cleanIpAddress } from './cleanIpAddress.js'
 export { createServer } from './createServer.js'
 export { createServerHTTP1 } from './createServerHTTP1.js'
