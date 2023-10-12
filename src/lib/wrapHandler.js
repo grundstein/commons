@@ -1,3 +1,5 @@
+import { constants } from 'node:http2'
+
 import { denyRequest } from './denyRequest.js'
 import { findFavicon } from './findFavicon.js'
 import { respond } from './respond.js'
