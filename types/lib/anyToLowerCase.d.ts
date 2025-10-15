@@ -1,1 +1,1 @@
-export function anyToLowerCase(a: unknown | unknown[]): string | unknown | (string | unknown)[]
+export function anyToLowerCase(a: string | string[]): string | string[]
