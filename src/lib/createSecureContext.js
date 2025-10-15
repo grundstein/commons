@@ -1,13 +1,24 @@
-import path from 'path'
-import tls from 'tls'
+import path from 'node:path'
+import tls from 'node:tls'
 
 import { log } from '../log.js'
-
 import fs from '@magic/fs'
 
-/*
- * TODO: rewrite this function in a memory-managing language
- * to make sure we can instantly forget the contents of the secret files.
+/**
+ * @typedef {Object} DomainContextOptions
+ * @property {string} certDir - Base directory containing certificates.
+ * @property {string} host - Hostname of the current server (e.g. "example.com" or "localhost").
+ * @property {string} domain - Path or folder name of the domain’s certificate directory.
+ * @property {string} [keyFileName="privkey.pem"] - Private key filename.
+ * @property {string} [chainFileName="fullchain.pem"] - Certificate chain filename.
+ */
+
+/**
+ * Reads certificate and key files for a given domain and creates a TLS secure context.
+ * Returns a tuple `[domainName, context]` or `false` if the context could not be created.
+ *
+ * @param {DomainContextOptions} opts
+ * @returns {Promise<[string, tls.SecureContext] | false>}
  */
 const getDomainContext = async ({
   certDir,
@@ -26,6 +37,7 @@ const getDomainContext = async ({
     const chainFile = path.join(domain, chainFileName)
     const keyFile = path.join(domain, keyFileName)
 
+    /** @type {tls.SecureContextOptions & { ca?: Buffer }} */
     const args = {
       cert: await fs.readFile(chainFile),
       key: await fs.readFile(keyFile),
@@ -36,36 +48,43 @@ const getDomainContext = async ({
       args.ca = await fs.readFile(caFile)
     }
 
+    // createSecureContext returns { context: SecureContext }
     const { context } = tls.createSecureContext(args)
 
     return [name, context]
   } catch (e) {
-    log.server.error(e)
+    const err = /** @type {import('@magic/error').CustomError} */ (e)
+    log.server.error(err)
+    return false
   }
 }
 
+/**
+ * Creates an object mapping domain names to their TLS SecureContext.
+ * Used by the HTTPS server’s SNICallback.
+ *
+ * @param {{ certDir: string, host: string, keyFileName?: string, chainFileName?: string }} args
+ * @returns {Promise<Record<string, tls.SecureContext>>}
+ */
 export const createSecureContext = async args => {
-  const { certDir, host } = args
+  const { certDir, host, keyFileName, chainFileName } = args
 
-  /*
-   * find directories in certDir
-   */
+  // find all directories in certDir
   const availableCertificates = await fs.getDirectories(certDir, { noRoot: true })
 
-  /*
-   * create a list of certificates to map over and make available
-   */
+  // load each domain context asynchronously
   const certificatePromises = availableCertificates.map(domain =>
-    getDomainContext({ certDir, host, domain }),
+    getDomainContext({ certDir, host, domain, keyFileName, chainFileName }),
   )
+
   const contextArray = await Promise.all(certificatePromises)
 
-  /*
-   * this object has a key for each domain found above
-   * the createServer function will register a SNICallback
-   * that checks this object for context based on hostnames
-   */
-  const secureContext = Object.fromEntries(contextArray)
+  // filter out failed contexts
+  /** @type {[string, tls.SecureContext][]} */
+  const validContexts = /** @type {any} */ (contextArray.filter(Boolean))
+
+  // map domains to SecureContext objects
+  const secureContext = Object.fromEntries(validContexts)
 
   return secureContext
 }

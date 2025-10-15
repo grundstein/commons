@@ -2,6 +2,17 @@ import path from 'path'
 
 import fs from '@magic/fs'
 
+/**
+ *
+ * @param {object} config
+ * @param {string} config.host
+ * @param {string} config.certDir
+ * @returns {Promise<{
+ *  key: Buffer
+ *  cert: Buffer
+ *  ca: Buffer
+ * }>}
+ */
 export const getHostCertificates = async config => {
   const { host, certDir } = config
 

@@ -28,8 +28,9 @@ export const findFavicon = async () => {
        */
       break
     } catch (e) {
-      if (e.code !== 'ENOENT') {
-        throw e
+      const err = /** @type {import('@magic/error').CustomError} */ (e)
+      if (err.code !== 'ENOENT') {
+        throw err
       }
 
       faviconContent = undefined

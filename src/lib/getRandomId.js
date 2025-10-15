@@ -4,13 +4,14 @@ import log from '../log.js'
 
 export const getRandomId = () =>
   new Promise(resolve =>
-    crypto.randomBytes(12, (err, buffer) => {
+    crypto.randomBytes(12, (e, buffer) => {
+      const err = /** @type {import('@magic/error').CustomError} */ (e)
       // something went wrong with /dev/urandom.
       // lets generate a simple numeric id.
       // this has a higher risk of id clashes in our logs,
       // but at least the process won't die on us.
       if (err || !buffer) {
-        const id = Math.floor(Math.Random() * 1000000)
+        const id = Math.floor(Math.random() * 1000000)
         log.server.error(err)
         resolve(id)
         return

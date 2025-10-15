@@ -1,3 +1,7 @@
+/**
+ * @param {ReturnType<typeof process.hrtime>} time
+ * @returns
+ */
 export const getRequestDuration = time => {
   // gets seconds and nanoseconds from the hrtime function.
   const [s, ns] = process.hrtime(time)
@@ -18,7 +22,7 @@ export const getRequestDuration = time => {
   }
 
   // lets remove the fractional numbers if possible. 1.00 turns into 1.0
-  span = span.toFixed(1) / 1
+  span = parseFloat(span.toFixed(1)) / 1
 
   // lets return a nicely formatted number string
   return `${span}${unit}`

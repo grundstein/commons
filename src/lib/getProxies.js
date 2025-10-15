@@ -1,5 +1,11 @@
 import fs from '@magic/fs'
 
+/**
+ *
+ * @param {object} config
+ * @param {string} config.proxyFile
+ * @returns
+ */
 export const getProxies = async config => {
   try {
     const proxyFileContents = await fs.readFile(config.proxyFile, 'utf8')

@@ -1,28 +1,57 @@
-import { is } from '@magic/test'
+import { is, version } from '@magic/test'
 
 import types from '@magic/types'
 
-import { log, lib, middleware, is as libIs } from '../src/index.js'
+import { lib, middleware, is as libIs } from '../src/index.js'
 
 import * as exportedLib from '../lib.js'
 import * as exportedMiddleware from '../middleware.js'
 
+const spec = {
+  formatLog: 'function',
+  getFileEncoding: 'function',
+  getRandomId: 'function',
+  respond: 'function',
+  sendFile: 'function',
+  middleware: {
+    body: 'function',
+  },
+  addEnv: 'function',
+  anyToLowerCase: 'function',
+  cleanIpAddress: 'function',
+  etags: 'function',
+  createServer: 'function',
+  createServerHTTP1: 'function',
+  createSecureContext: 'function',
+  denyRequest: 'function',
+  enhanceRequest: 'function',
+  getClientIp: 'function',
+  getCurrentDate: 'function',
+  getHostCertificates: 'function',
+  getHostname: 'function',
+  getProxies: 'function',
+  getRequestDuration: 'function',
+  isSendableFile: 'function',
+  slugify: 'function',
+}
+
+const middlewareSpec = {
+  body: 'function',
+  listener: 'function',
+  clientError: 'function',
+}
+
 export default [
-  { fn: is.object(lib), info: 'lib is an object' },
-  { fn: is.fn(lib.formatLog), info: 'lib.formatLog is a function' },
-  { fn: is.fn(lib.getFileEncoding), info: 'lib.getFileEncoding is a function' },
-  { fn: is.fn(lib.getRandomId), info: 'lib.getRandomId is a function' },
-  { fn: is.fn(lib.respond), info: 'lib.respond is a function' },
-  { fn: is.fn(lib.sendFile), info: 'lib.sendFile is a function' },
-
-  { fn: is.object(middleware), info: 'middleware is an object' },
-  { fn: is.fn(middleware.body), info: 'middleware.body is a function' },
-
-  { fn: is.deep.equal(exportedLib, lib), info: 'exported libs are equal' },
-  { fn: is.deep.equal(exportedMiddleware, middleware), info: 'exported middlewares are equal' },
-
+  ...version(lib, spec),
+  ...version(middleware, middlewareSpec),
   {
-    fn: is.deep.equal(libIs, types),
-    info: '@magic/types and this library export the same default',
+    fn: exportedLib,
+    expect: is.deep.equal(lib),
+    info: 'exported lib and lib are the same',
+  },
+  {
+    fn: exportedMiddleware,
+    expect: is.deep.equal(middleware),
+    info: 'exported middleware and middleware are the same',
   },
 ]

@@ -1,11 +1,18 @@
-import { is } from '../is.js'
+import { isIPv6 } from 'node:net'
 
-export const cleanIpAddress = (ip, full) => {
+/**
+ *
+ *
+ * @param {string} ip
+ * @param {boolean} [full]
+ * @returns
+ */
+export const cleanIpAddress = (ip, full = false) => {
   if (!ip) {
     return ip
   }
 
-  if (is.ip.v6(ip)) {
+  if (isIPv6(ip)) {
     if (!full) {
       const ipArray = ip.split(':')
       ipArray[ipArray.length - 1] = 'xxxx'

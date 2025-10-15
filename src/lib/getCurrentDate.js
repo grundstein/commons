@@ -1,14 +1,27 @@
+/**
+ *
+ * @returns {{
+ *   date: string
+ *   time: string
+ * }}
+ */
 export const getCurrentDate = () => {
   const date = new Date()
 
+  /** @type {string | number} */
   let day = date.getDate()
+  /** @type {string | number} */
   let month = date.getMonth() + 1
 
   const year = date.getFullYear()
 
+  /** @type {string | number} */
   let hour = date.getHours()
+  /** @type {string | number} */
   let minute = date.getMinutes()
+  /** @type {string | number} */
   let second = date.getSeconds()
+  /** @type {string | number} */
   let millisecond = date.getMilliseconds()
 
   if (day < 10) {
