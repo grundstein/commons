@@ -1,4 +1,4 @@
-import { is } from '@grundstein/commons'
+import is from '@magic/types'
 
 /*
  * converts a string or all strings in an array into lowercase
