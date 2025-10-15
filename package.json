@@ -31,15 +31,15 @@
   },
   "dependencies": {
     "@magic-libraries/slugify": "0.0.4",
-    "@magic/cli": "0.0.46",
-    "@magic/error": "0.0.17",
-    "@magic/fs": "0.0.29",
-    "@magic/log": "0.1.18",
-    "@magic/types": "0.1.23"
+    "@magic/cli": "0.0.48",
+    "@magic/error": "0.0.20",
+    "@magic/fs": "0.0.33",
+    "@magic/log": "0.1.20",
+    "@magic/types": "0.1.29"
   },
   "devDependencies": {
-    "@magic/format": "0.0.53",
-    "@magic/test": "0.2.18"
+    "@magic/format": "0.0.68",
+    "@magic/test": "0.2.24"
   },
   "keywords": [
     "grundstein",
