@@ -1,5 +1,3 @@
-// @ts-check
-
 import log from '../log.js'
 
 /**
@@ -9,13 +7,11 @@ import log from '../log.js'
 /**
  * Adds a high-resolution start time to an HTTP/2 stream.
  *
- * @param {import('node:http2').ServerHttp2Stream | object} stream
- * @returns {EnhancedHttp2Stream | { startTime?: ReturnType<typeof process.hrtime>}}
+ * @param {EnhancedHttp2Stream} stream
+ * @returns {EnhancedHttp2Stream}
  */
-export const enhanceRequest = (stream = {}) => {
-  /** @type {EnhancedHttp2Stream | { startTime?: ReturnType<typeof process.hrtime>}} */
-  const s = stream
-  s.startTime = log.hrtime()
+export const enhanceRequest = stream => {
+  stream.startTime = log.hrtime()
 
-  return s
+  return stream
 }

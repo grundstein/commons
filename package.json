@@ -14,8 +14,8 @@
   "engineStrict": true,
   "scripts": {
     "start": "npm test",
-    "build": "npm test && tsc && npm run format",
-    "prepublishOnly": "npm run build",
+    "build": "tsc && npm run format",
+    "prepublishOnly": "npm test && npm run build",
     "test:fast": "t -p",
     "test": "t",
     "format": "f -w"

@@ -1,8 +1,4 @@
-export function enhanceRequest(stream?: import('node:http2').ServerHttp2Stream | object):
-  | EnhancedHttp2Stream
-  | {
-      startTime?: ReturnType<typeof process.hrtime>
-    }
+export function enhanceRequest(stream: EnhancedHttp2Stream): EnhancedHttp2Stream
 export type EnhancedHttp2Stream = import('node:http2').ServerHttp2Stream & {
   startTime?: ReturnType<typeof process.hrtime>
 }
