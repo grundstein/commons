@@ -30,7 +30,7 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@magic-libraries/slugify": "0.0.4",
+    "@magic-libraries/slugify": "0.0.5",
     "@magic/cli": "0.0.48",
     "@magic/error": "0.0.20",
     "@magic/fs": "0.0.34",
