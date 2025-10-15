@@ -4,7 +4,7 @@ import tls from 'node:tls'
 
 import fs from '@magic/fs'
 import log from '../log.js'
-import * as middleware from '../../middleware.js'
+import * as middleware from '../middleware.js'
 
 import { createSecureContext } from './createSecureContext.js'
 import { denyRequest } from './denyRequest.js'

@@ -2,7 +2,7 @@ import http2 from 'node:http2'
 import path from 'node:path'
 
 import log from '../log.js'
-import * as middleware from '../../middleware.js'
+import * as middleware from '../middleware.js'
 
 import { createSecureContext } from './createSecureContext.js'
 import { wrapHandler } from './wrapHandler.js'

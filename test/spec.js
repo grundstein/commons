@@ -1,11 +1,9 @@
 import { is, version } from '@magic/test'
 
-import types from '@magic/types'
+import { lib, middleware } from '../src/index.js'
 
-import { lib, middleware, is as libIs } from '../src/index.js'
-
-import * as exportedLib from '../lib.js'
-import * as exportedMiddleware from '../middleware.js'
+import * as exportedLib from '../src/lib.js'
+import * as exportedMiddleware from '../src/middleware.js'
 
 const spec = {
   formatLog: 'function',
