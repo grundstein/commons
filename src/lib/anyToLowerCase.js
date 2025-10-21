@@ -8,7 +8,9 @@ import is from '@magic/types'
 export const anyToLowerCase = a => {
   if (is.arr(a)) {
     return a.map(a => anyToLowerCase(a)).flat(2000)
-  } else {
+  } else if (is.fn(a?.toLowerCase)) {
     return a.toLowerCase()
   }
+
+  return a
 }
