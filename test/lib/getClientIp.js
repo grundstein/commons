@@ -1,4 +1,4 @@
-import { getClientIp } from '../../src/lib/getClientIp.mjs'
+import { getClientIp } from '../../src/lib/getClientIp.js'
 
 const validHeaders = {
   'x-forwarded-for': '1.2.3.4',

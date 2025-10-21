@@ -1,7 +1,7 @@
-import log from '../log.mjs'
+import log from '../log.js'
 
-import { getRequestDuration } from './getRequestDuration.mjs'
-import { getCurrentDate } from './getCurrentDate.mjs'
+import { getRequestDuration } from './getRequestDuration.js'
+import { getCurrentDate } from './getCurrentDate.js'
 
 export const formatLog = (req, res, { time, type = 'request' }) => {
   const { statusCode } = res

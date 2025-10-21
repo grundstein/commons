@@ -1,4 +1,4 @@
-import { is } from '../is.mjs'
+import { is } from '../is.js'
 
 export const cleanIpAddress = (ip, full) => {
   if (!ip) {

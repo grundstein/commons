@@ -1,7 +1,7 @@
 import path from 'path'
 import { createWriteStream } from 'fs'
 
-import { getCurrentDate, getRequestDuration } from './lib/index.mjs'
+import { getCurrentDate, getRequestDuration } from './lib/index.js'
 
 const request =
   cons =>

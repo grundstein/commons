@@ -1,4 +1,4 @@
-import log from '../log.mjs'
+import log from '../log.js'
 
 export const respond = (req, res, payload = {}) => {
   const {

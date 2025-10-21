@@ -1,6 +1,6 @@
 import { is, tryCatch } from '@magic/test'
 
-import { denyRequest } from '../../src/lib/denyRequest.mjs'
+import { denyRequest } from '../../src/lib/denyRequest.js'
 
 const testSocketDestroy = () => {
   let called = false

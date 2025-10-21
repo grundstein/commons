@@ -1,5 +1,5 @@
-import { getFileEncoding } from './getFileEncoding.mjs'
-import { respond } from './respond.mjs'
+import { getFileEncoding } from './getFileEncoding.js'
+import { respond } from './respond.js'
 
 export const sendFile = (req, res, options) => {
   const { file, code = 200, type = 'sendFile' } = options
