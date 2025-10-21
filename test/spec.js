@@ -14,6 +14,7 @@ const spec = {
   middleware: {
     body: 'function',
   },
+  gzip: 'function',
   addEnv: 'function',
   anyToLowerCase: 'function',
   cleanIpAddress: 'function',
