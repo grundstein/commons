@@ -1,3 +1,5 @@
+import constants from '@magic/http1-constants'
+
 import log from '../log.js'
 
 /**
@@ -34,9 +36,9 @@ export const respond = (req, res, payload = {}) => {
   } = payload
 
   const head = {
-    'Content-Type': 'text/plain; charset=utf-8',
-    'Content-Length': Buffer.byteLength(body),
-    'Content-Encoding': 'identity',
+    [constants.headers.CONTENT_TYPE]: 'text/plain; charset=utf-8',
+    [constants.headers.CONTENT_LENGTH]: Buffer.byteLength(body),
+    [constants.headers.CONTENT_ENCODING]: 'identity',
     ...headers,
   }
 

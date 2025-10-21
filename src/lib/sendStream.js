@@ -1,4 +1,5 @@
 import { createReadStream } from 'node:fs'
+import constants from '@magic/http1-constants'
 
 /**
  * @typedef {import('http').IncomingMessage} IncomingMessage
@@ -47,8 +48,8 @@ export const sendStream = (req, res, options) => {
     const errorMessage = `Requested range not satisfiable ${start} >= ${file.size}`
     const errorBuffer = Buffer.from(errorMessage)
 
-    headers['Content-Type'] = 'text/plain'
-    headers['Content-Length'] = Buffer.byteLength(errorBuffer)
+    headers[constants.headers.CONTENT_TYPE] = 'text/plain'
+    headers[constants.headers.CONTENT_LENGTH] = Buffer.byteLength(errorBuffer)
 
     res.writeHead(416, headers)
     res.end(errorMessage)
@@ -57,10 +58,10 @@ export const sendStream = (req, res, options) => {
 
   const chunksize = end - start + 1
 
-  headers['Content-Range'] = `bytes ${start}-${end}/${file.size}`
-  headers['Accept-Ranges'] = 'bytes'
-  headers['Content-Length'] = chunksize
-  headers['Content-Type'] = file.mime
+  headers[constants.headers.CONTENT_RANGE] = `bytes ${start}-${end}/${file.size}`
+  headers[constants.headers.ACCEPT_RANGES] = 'bytes'
+  headers[constants.headers.CONTENT_LENGTH] = chunksize
+  headers[constants.headers.CONTENT_TYPE] = file.mime
 
   res.writeHead(statusCode, headers)
 

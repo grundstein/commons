@@ -54,11 +54,11 @@ export const sendFile = (req, res, options) => {
 
   headers = {
     ...headers,
-    'Content-Type': file.mime,
+    [constants.headers.CONTENT_TYPE]: file.mime,
   }
 
   if (encoding !== 'buffer') {
-    headers['Content-Encoding'] = encoding
+    headers[constants.headers.CONTENT_ENCODING] = encoding
   }
 
   return respond(req, res, { code, headers, body, type })
