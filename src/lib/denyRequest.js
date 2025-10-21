@@ -1,7 +1,21 @@
 import { is } from '@magic/types'
 
-export const denyRequest = (req = {}) => {
-  const { url = '', socket } = req
+/**
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ */
+
+/**
+ * Checks if a request should be denied based on URL validation
+ * Denies requests with:
+ * - Empty URLs
+ * - URLs not starting with '/'
+ * - URLs containing '://' (protocol indicators)
+ * Destroys socket connection for invalid requests
+ * @param {IncomingMessage} req - HTTP request object
+ * @returns {boolean} True if request should be denied, false otherwise
+ */
+export const denyRequest = req => {
+  const { url = '', socket } = req || {}
 
   /*
    * if the req.url does not exist, start with '/' or includes '://',

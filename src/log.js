@@ -4,6 +4,25 @@ import { getCurrentDate } from './lib/getCurrentDate.js'
 import { getRequestDuration } from './lib/getRequestDuration.js'
 import { getClientIp } from './lib/getClientIp.js'
 
+/**
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ * @typedef {import('http').ServerResponse} ServerResponse
+ */
+
+/**
+ * @typedef {Object} RequestLogOptions
+ * @property {[number, number]} time - High-resolution time
+ * @property {string} [type='request'] - Type of request
+ * @property {boolean} [getFullIp=false] - Whether to get full IP address
+ */
+
+/**
+ * Logs HTTP request information
+ * @param {IncomingMessage} req - HTTP request object
+ * @param {ServerResponse} res - HTTP response object
+ * @param {RequestLogOptions} options - Logging options
+ * @returns {void}
+ */
 const request = (req, res, { time, type = 'request', getFullIp = false }) => {
   const { statusCode } = res
   const { url } = req
@@ -42,6 +61,11 @@ const request = (req, res, { time, type = 'request', getFullIp = false }) => {
   magicLog(response)
 }
 
+/**
+ * Logs error messages
+ * @param {...string} msgs - Error messages to log
+ * @returns {void}
+ */
 const error = (...msgs) => {
   const { time, date } = getCurrentDate()
 
@@ -63,6 +87,11 @@ const error = (...msgs) => {
   magicLog(response)
 }
 
+/**
+ * Logs info messages
+ * @param {...string} msgs - Info messages to log
+ * @returns {void}
+ */
 const info = (...msgs) => {
   const { time, date } = getCurrentDate()
 
@@ -84,6 +113,11 @@ const info = (...msgs) => {
   magicLog(response)
 }
 
+/**
+ * Logs warning messages
+ * @param {...string} msgs - Warning messages to log
+ * @returns {void}
+ */
 const warn = (...msgs) => {
   const { time, date } = getCurrentDate()
 
@@ -105,13 +139,16 @@ const warn = (...msgs) => {
   magicLog(response)
 }
 
-const log = magicLog
-
-log.server = {
-  request,
-  info,
-  error,
-  warn,
-}
+/**
+ * @type {import('@magic/log').LogFunction & import('@magic/log').LogMethods & { server: { request: Function, info: Function, error: Function, warn: Function } }}
+ */
+const log = Object.assign(magicLog, {
+  server: {
+    request,
+    info,
+    error,
+    warn,
+  },
+})
 
 export default log

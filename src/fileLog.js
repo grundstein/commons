@@ -1,8 +1,25 @@
 import path from 'path'
 import { createWriteStream } from 'fs'
+import { Console } from 'console'
 
 import { getCurrentDate, getRequestDuration } from './lib/index.js'
 
+/**
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ * @typedef {import('http').ServerResponse} ServerResponse
+ */
+
+/**
+ * @typedef {Object} FileLogOptions
+ * @property {[number, number]} time - High-resolution time tuple
+ * @property {string} [type='request'] - Type of request
+ */
+
+/**
+ * Creates a request logger function
+ * @param {Console} cons - Console instance for logging
+ * @returns {(req: IncomingMessage, res: ServerResponse, options: FileLogOptions) => void}
+ */
 const request =
   cons =>
   (req, res, { time, type = 'request' }) => {
@@ -36,9 +53,14 @@ const request =
       '}',
     ].join('')
 
-    cons(response)
+    cons.log(response)
   }
 
+/**
+ * Creates an error logger function
+ * @param {Console} cons - Console instance for logging
+ * @returns {(...msgs: string[]) => void}
+ */
 const error =
   cons =>
   (...msgs) => {
@@ -59,9 +81,14 @@ const error =
       '}',
     ].join('')
 
-    cons(response)
+    cons.error(response)
   }
 
+/**
+ * Creates an info logger function
+ * @param {Console} cons - Console instance for logging
+ * @returns {(...msgs: string[]) => void}
+ */
 const info =
   cons =>
   (...msgs) => {
@@ -82,9 +109,14 @@ const info =
       '}',
     ].join('')
 
-    cons(response)
+    cons.info(response)
   }
 
+/**
+ * Creates a warn logger function
+ * @param {Console} cons - Console instance for logging
+ * @returns {(...msgs: string[]) => void}
+ */
 const warn =
   cons =>
   (...msgs) => {
@@ -105,11 +137,17 @@ const warn =
       '}',
     ].join('')
 
-    cons(response)
+    cons.warn(response)
   }
 
 const defaultOutputPath = path.join('/var', 'log', 'grundstein')
 
+/**
+ * Creates a file logger with separate access and error log files
+ * @param {string} [name] - Logger name (defaults to current directory name + random string)
+ * @param {string} [outputPath] - Output directory path
+ * @returns {{ request: Function, info: Function, error: Function, warn: Function }}
+ */
 export const fileLog = (name, outputPath = defaultOutputPath) => {
   if (!name) {
     const nameArray = process.cwd().split(path.sep)
@@ -123,7 +161,7 @@ export const fileLog = (name, outputPath = defaultOutputPath) => {
   const stderrFile = path.join(outputPath, `${name}-error.log`)
   const stderrStream = createWriteStream(stderrFile)
 
-  const cons = console.Console(stdoutStream, stderrStream)
+  const cons = new Console(stdoutStream, stderrStream)
 
   return {
     request: request(cons),

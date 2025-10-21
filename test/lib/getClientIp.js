@@ -47,7 +47,7 @@ export default [
     info: 'calling getClientIp without arguments returns "unknown"',
   },
   {
-    fn: getClientIp({ connection: {}, headers: {} }),
+    fn: getClientIp({ headers: {} }),
     expect: 'unknown',
     info: 'calling getClientIp without headers and connection returns "unknown"',
   },
@@ -57,19 +57,9 @@ export default [
     info: 'calling with headers[x-forwarded-for] and full returns full ip.',
   },
   {
-    fn: getClientIp({ connection: validConnection }, true),
-    expect: validConnection.remoteAddress,
-    info: 'calling with connection.remoteAddress and full returns full ip.',
-  },
-  {
     fn: getClientIp({ headers: validHeaders }),
     expect: validHeaderResponse,
-    info: 'calling with connection.remoteAddress and full returns full ip.',
-  },
-  {
-    fn: getClientIp({ connection: validConnection }),
-    expect: validConnectionResponse,
-    info: 'calling with connection.remoteAddress and full returns full ip.',
+    info: 'calling with valid headers returns ip.',
   },
   {
     fn: getClientIp({ headers: validIpv6Headers }, true),

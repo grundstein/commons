@@ -6,6 +6,7 @@
   "license": "AGPL-3.0",
   "description": "@grundstein/commons. shared library functionality, server middleware, lib and init functions.",
   "main": "src/index.js",
+  "types": "types/index.d.ts",
   "type": "module",
   "engines": {
     "node": ">=14.14.0"
@@ -15,10 +16,13 @@
     "start": "npm test",
     "test": "t -p",
     "cover": "t",
-    "format": "f -w"
+    "format": "f -w",
+    "build": "tsc && npm run format",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
-    "src"
+    "src",
+    "types"
   ],
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
     "@magic/cli": "0.0.48",
     "@magic/error": "0.0.20",
     "@magic/fs": "0.0.35",
+    "@magic/http1-constants": "0.0.1",
     "@magic/log": "0.1.20",
     "@magic/types": "0.1.29"
   },

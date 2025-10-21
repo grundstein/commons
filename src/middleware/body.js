@@ -1,12 +1,24 @@
+import log from '../log.js'
+
+/**
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ */
+
 // this middleware expects small chunks of data.
 // it loads the full request body into ram before returning.
 // request body size limits should be set in this middleware in the future.
 
+/**
+ * Parses request body, handling JSON and plain text
+ * @param {IncomingMessage} req - HTTP request object
+ * @returns {Promise<string|Object>} Parsed body as string or JSON object
+ */
 export const body = req =>
   new Promise((resolve, reject) => {
     try {
       const isJson = req.headers['content-type'] === 'application/json'
 
+      /** @type {Uint8Array<ArrayBufferLike>[]} */
       const bodyParts = []
 
       req.on('data', chunk => {

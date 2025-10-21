@@ -1,5 +1,31 @@
-import { createReadStream } from 'fs'
+import { createReadStream } from 'node:fs'
 
+/**
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ * @typedef {import('http').ServerResponse} ServerResponse
+ * @typedef {import('http').OutgoingHttpHeaders} OutgoingHttpHeaders
+ */
+
+/**
+ * @typedef {Object} StreamFileObject
+ * @property {string} path - File path
+ * @property {number} size - File size in bytes
+ * @property {string} mime - MIME type
+ */
+
+/**
+ * @typedef {Object} SendStreamOptions
+ * @property {StreamFileObject} file - File object to stream
+ * @property {OutgoingHttpHeaders} [headers={}] - Additional HTTP headers
+ */
+
+/**
+ * Sends a file as a stream with support for HTTP range requests
+ * @param {IncomingMessage} req - HTTP request object
+ * @param {ServerResponse} res - HTTP response object
+ * @param {SendStreamOptions} options - Stream options
+ * @returns {void}
+ */
 export const sendStream = (req, res, options) => {
   const { file, headers = {} } = options
   const { range } = req.headers
@@ -43,11 +69,7 @@ export const sendStream = (req, res, options) => {
   readStream.pipe(res)
 
   res.on('close', () => {
-    if (res.readStream) {
-      res.readStream.unpipe(readStream)
-      if (readStream.fd) {
-        fs.close(readStream.fd)
-      }
-    }
+    readStream.unpipe(res)
+    readStream.destroy()
   })
 }

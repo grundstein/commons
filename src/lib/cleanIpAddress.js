@@ -1,5 +1,13 @@
 import { is } from '../is.js'
 
+/**
+ * Cleans and optionally obscures an IP address
+ * For IPv6: replaces last segment with 'xxxx' when not full
+ * For IPv4: replaces last octet with 'xxx' when not full
+ * @param {string} ip - IP address to clean
+ * @param {boolean} [full] - Whether to return full IP address without obscuring
+ * @returns {string} Cleaned IP address
+ */
 export const cleanIpAddress = (ip, full) => {
   if (!ip) {
     return ip

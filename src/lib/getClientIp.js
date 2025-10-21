@@ -2,9 +2,49 @@ import { is } from '../is.js'
 import { cleanIpAddress } from './cleanIpAddress.js'
 
 /**
- * Returns the IP address from the headers, if it exists.
+ * @typedef {import('http').IncomingMessage} IncomingMessage
+ * @typedef {import('net').Socket} Socket
  */
-export const getClientIp = (req = {}, full = false) => {
+
+/**
+ * @typedef {Object} ConnectionLike
+ * @property {string} [remoteAddress]
+ * @property {Socket} [socket]
+ */
+
+/**
+ * @typedef {Object} RequestInfo
+ * @property {string} [remoteAddress]
+ */
+
+/**
+ * @typedef {Object} RequestIdentity
+ * @property {string} [sourceIp]
+ */
+
+/**
+ * @typedef {Object} RequestContext
+ * @property {RequestIdentity} [identity]
+ */
+
+/**
+ * @typedef {IncomingMessage & {
+ *   info?: RequestInfo,
+ *   requestContext?: RequestContext
+ * }} ExtendedIncomingMessage
+ */
+
+/**
+ * Returns the IP address from the headers, if it exists.
+ * @param {ExtendedIncomingMessage} req - HTTP request object
+ * @param {boolean} [full=false] - Whether to return full IP or cleaned version
+ * @returns {string} Client IP address or 'unknown'
+ */
+export const getClientIp = (req, full = false) => {
+  if (!req) {
+    return 'unknown'
+  }
+
   if (req.headers) {
     const keys = [
       'x-forwarded-for',
@@ -29,34 +69,24 @@ export const getClientIp = (req = {}, full = false) => {
 
     if (headerKey) {
       const value = req.headers[headerKey]
-      return cleanIpAddress(value, full)
+      if (typeof value === 'string') {
+        return cleanIpAddress(value, full)
+      }
     }
   }
 
-  const { connection = {} } = req
-  if (is.ip(connection.remoteAddress)) {
-    return cleanIpAddress(connection.remoteAddress, full)
+  if (req.socket?.remoteAddress && is.ip(req.socket.remoteAddress)) {
+    return cleanIpAddress(req.socket.remoteAddress, full)
   }
 
-  if (connection.socket) {
-    if (is.ip(connection.socket.remoteAddress)) {
-      return cleanIpAddress(connection.socket.remoteAddress, full)
-    }
-  }
-
-  const { socket = {} } = req
-  if (is.ip(socket.remoteAddress)) {
-    return cleanIpAddress(socket.remoteAddress, full)
-  }
-
-  const { info = {} } = req
-  if (is.ip(info.remoteAddress)) {
+  const info = req.info || {}
+  if (info.remoteAddress && is.ip(info.remoteAddress)) {
     return cleanIpAddress(info.remoteAddress, full)
   }
 
-  const { requestContext = {} } = req
-  const { identity = {} } = requestContext
-  if (is.ip(identity.sourceIp)) {
+  const requestContext = req.requestContext || {}
+  const identity = requestContext.identity || {}
+  if (identity.sourceIp && is.ip(identity.sourceIp)) {
     return cleanIpAddress(identity.sourceIp, full)
   }
 

@@ -2,12 +2,9 @@ export { default as fs } from '@magic/fs'
 export { default as cli } from '@magic/cli'
 export { default as error } from '@magic/error'
 export { default as constants } from '@magic/http1-constants'
-
 export { default as log } from './log.js'
 export { default as fileLog } from './fileLog.js'
-
 export { is } from './is.js'
-
 export { cleanIpAddress } from './lib/cleanIpAddress.js'
 export { createServer } from './lib/createServer.js'
 export { createSecureContext } from './lib/createSecureContext.js'
@@ -27,7 +24,6 @@ export { formatLog } from './lib/formatLog.js'
 export { respond } from './lib/respond.js'
 export { sendFile } from './lib/sendFile.js'
 export { sendStream } from './lib/sendStream.js'
-
 export { body } from './middleware/body.js'
 export { clientError } from './middleware/clientError.js'
 export { listener } from './middleware/listener.js'
