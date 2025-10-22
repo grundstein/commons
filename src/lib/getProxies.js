@@ -19,7 +19,7 @@ export const getProxies = async config => {
     /* read proxies, delimited by newlines, filter out empty lines */
     const proxies = proxyFileContents.split('\n').filter(a => a)
     return proxies
-  } catch (e) {
+  } catch {
     /* on error, we expect that no proxies exist */
     return []
   }

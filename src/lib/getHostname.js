@@ -12,7 +12,11 @@ import { is } from '../is.js'
  * @returns {string} Hostname without port
  */
 export const getHostname = req => {
-  const { headers } = req
+  if (!req) {
+    return ''
+  }
+
+  const { headers = {} } = req
   let host = headers.host || headers[constants.headers.X_FORWARDED_FOR] || ''
 
   if (is.array(host)) {

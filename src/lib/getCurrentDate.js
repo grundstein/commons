@@ -11,9 +11,7 @@
  * All values are zero-padded
  * @returns {FormattedDate} Object containing formatted date and time strings
  */
-export const getCurrentDate = () => {
-  const date = new Date()
-
+export const getCurrentDate = (date = new Date()) => {
   /** @type {string | number} */
   let day = date.getDate()
   /** @type {string | number} */
@@ -44,6 +42,7 @@ export const getCurrentDate = () => {
   if (minute < 10) {
     minute = `0${minute}`
   }
+
   if (second < 10) {
     second = `0${second}`
   }

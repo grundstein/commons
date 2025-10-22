@@ -79,13 +79,13 @@ export const getClientIp = (req, full = false) => {
     return cleanIpAddress(req.socket.remoteAddress, full)
   }
 
-  const info = req.info || {}
+  const { info = {} } = req
   if (info.remoteAddress && is.ip(info.remoteAddress)) {
     return cleanIpAddress(info.remoteAddress, full)
   }
 
-  const requestContext = req.requestContext || {}
-  const identity = requestContext.identity || {}
+  const { requestContext = {} } = req
+  const { identity = {} } = requestContext
   if (identity.sourceIp && is.ip(identity.sourceIp)) {
     return cleanIpAddress(identity.sourceIp, full)
   }

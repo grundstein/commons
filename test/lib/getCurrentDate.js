@@ -19,6 +19,17 @@ export default [
     info: 'returns a date string including 2 "/"',
   },
   {
+    fn: getCurrentDate(new Date('2025-12-11')),
+    expect: { date: '2025/12/11', time: '01:00:00:000' },
+    info: 'getCurrentDate with passed date works',
+  },
+
+  {
+    fn: getCurrentDate(new Date('2025-02-01:01:01:01:001')),
+    expect: { date: '2025/02/01', time: '01:01:01:001' },
+    info: 'getCurrentDate converts single digit month, day, hour, minute and seconds to double digits.',
+  },
+  {
     fn: getCurrentDate(),
     expect: t => {
       const [year, month, day] = t.date.split('/')

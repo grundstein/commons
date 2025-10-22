@@ -57,6 +57,21 @@ export default [
     info: 'calling with headers[x-forwarded-for] and full returns full ip.',
   },
   {
+    fn: getClientIp({ socket: { remoteAddress: '127.0.0.1' } }),
+    expect: '127.0.0.xxx',
+    info: 'req.socket.remoteAddress works',
+  },
+  {
+    fn: getClientIp({ info: { remoteAddress: '127.0.0.1' } }),
+    expect: '127.0.0.xxx',
+    info: 'req.info.remoteAddress works',
+  },
+  {
+    fn: getClientIp({ requestContext: { identity: { sourceIp: '127.0.0.1' } } }),
+    expect: '127.0.0.xxx',
+    info: 'requestContext.sourceIp works',
+  },
+  {
     fn: getClientIp({ headers: validHeaders }),
     expect: validHeaderResponse,
     info: 'calling with valid headers returns ip.',
