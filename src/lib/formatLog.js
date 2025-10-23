@@ -1,4 +1,4 @@
-import log from '../log.js'
+import logger from '../log.js'
 
 import { getRequestDuration } from './getRequestDuration.js'
 import { getCurrentDate } from './getCurrentDate.js'
@@ -12,6 +12,7 @@ import { getCurrentDate } from './getCurrentDate.js'
  * @typedef {Object} FormatLogOptions
  * @property {[number, number]} time - High-resolution time
  * @property {string} [type='request'] - Log type
+ * @property {import('@magic/log').default} [log]
  */
 
 /**
@@ -21,7 +22,7 @@ import { getCurrentDate } from './getCurrentDate.js'
  * @param {FormatLogOptions} options - Format log options
  * @returns {void}
  */
-export const formatLog = (req, res, { time, type = 'request' }) => {
+export const formatLog = (req, res, { time, type = 'request', log = logger }) => {
   const { statusCode } = res
   const { url } = req
 
