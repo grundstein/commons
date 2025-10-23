@@ -27,7 +27,7 @@ export const cleanIpAddress = (ip, full) => {
     ip = ip.split(':')[0]
   }
 
-  if (!full) {
+  if (!full && is.ip.v4(ip)) {
     const ipArray = ip.split('.')
     ipArray[ipArray.length - 1] = 'xxx'
     return ipArray.join('.')
