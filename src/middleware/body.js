@@ -18,8 +18,6 @@ import log from '../log.js'
 export const body = req =>
   new Promise((resolve, reject) => {
     try {
-      const isJson = req.headers[constants.headers.CONTENT_TYPE] === 'application/json'
-
       /** @type {Uint8Array<ArrayBufferLike>[]} */
       const bodyParts = []
 
@@ -29,6 +27,7 @@ export const body = req =>
 
       req.on('end', () => {
         let body = Buffer.concat(bodyParts).toString()
+        const isJson = req.headers[constants.headers.CONTENT_TYPE] === 'application/json'
 
         if (isJson) {
           try {
