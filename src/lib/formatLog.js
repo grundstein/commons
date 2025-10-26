@@ -12,7 +12,7 @@ import { getCurrentDate } from './getCurrentDate.js'
  * @typedef {Object} FormatLogOptions
  * @property {[number, number]} time - High-resolution time
  * @property {string} [type='request'] - Log type
- * @property {import('@magic/log').default} [log]
+ * @property {import('../log.js').EnhancedLog} [log]
  */
 
 /**
