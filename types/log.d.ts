@@ -15,10 +15,7 @@ export type RequestLogOptions = {
    */
   getFullIp?: boolean | undefined
 }
-/**
- * @type {import('@magic/log').LogFunction & import('@magic/log').LogMethods & { server: { request: Function, info: Function, error: Function, warn: Function } }}
- */
-declare const log: import('@magic/log').LogFunction &
+export type EnhancedLog = import('@magic/log').LogFunction &
   import('@magic/log').LogMethods & {
     server: {
       request: Function
@@ -27,3 +24,8 @@ declare const log: import('@magic/log').LogFunction &
       warn: Function
     }
   }
+/**
+ * @typedef {import('@magic/log').LogFunction & import('@magic/log').LogMethods & { server: { request: Function, info: Function, error: Function, warn: Function } }} EnhancedLog
+ */
+/** @type {EnhancedLog} */
+declare const log: EnhancedLog
