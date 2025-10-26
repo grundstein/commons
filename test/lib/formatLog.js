@@ -2,6 +2,8 @@ import { is, tryCatch } from '@magic/test'
 
 import { formatLog } from '../../src/lib/formatLog.js'
 
+const log = () => {}
+
 export default [
   { fn: tryCatch(formatLog), expect: is.error, info: 'formatLog without arguments throws' },
 
@@ -10,7 +12,7 @@ export default [
       // Mock request and response objects
       const req = { url: '/test/path' }
       const res = { statusCode: 200 }
-      const options = { time: process.hrtime(), type: 'request' }
+      const options = { time: process.hrtime(), type: 'request', log }
 
       // Call formatLog (it will log to console)
       formatLog(req, res, options)
@@ -25,7 +27,7 @@ export default [
     fn: () => {
       const req = { url: '/api/users' }
       const res = { statusCode: 404 }
-      const options = { time: process.hrtime(), type: 'api' }
+      const options = { time: process.hrtime(), type: 'api', log }
 
       formatLog(req, res, options)
 
@@ -60,7 +62,7 @@ export default [
     fn: () => {
       const req = { url: '/error/path' }
       const res = { statusCode: 500 }
-      const options = { time: process.hrtime() } // type defaults to 'request'
+      const options = { time: process.hrtime(), log } // type defaults to 'request'
 
       formatLog(req, res, options)
 
