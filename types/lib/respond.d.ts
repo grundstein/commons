@@ -18,7 +18,7 @@ export type RespondPayload = {
   /**
    * - High-resolution time
    */
-  time?: number | undefined
+  time?: [number, number] | undefined
   /**
    * - Response type
    */

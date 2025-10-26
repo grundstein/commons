@@ -13,7 +13,7 @@ import log from '../log.js'
  * @property {string|Buffer} [body='500 - Server Error'] - Response body
  * @property {number} [code=500] - HTTP status code
  * @property {OutgoingHttpHeaders} [headers=[]] - HTTP headers
- * @property {number} [time] - High-resolution time
+ * @property {[number, number]} [time] - High-resolution time
  * @property {string} [type='response'] - Response type
  * @property {boolean} [getFullIp=false] - Whether to get full IP address
  */
