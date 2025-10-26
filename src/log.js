@@ -140,8 +140,10 @@ const warn = (...msgs) => {
 }
 
 /**
- * @type {import('@magic/log').LogFunction & import('@magic/log').LogMethods & { server: { request: Function, info: Function, error: Function, warn: Function } }}
+ * @typedef {import('@magic/log').LogFunction & import('@magic/log').LogMethods & { server: { request: Function, info: Function, error: Function, warn: Function } }} EnhancedLog
  */
+
+/** @type {EnhancedLog} */
 const log = Object.assign(magicLog, {
   server: {
     request,
