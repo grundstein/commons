@@ -1,9 +1,11 @@
+import error from '@magic/error'
 import constants from '@magic/http1-constants'
 
 import log from '../log.js'
 
 /**
  * @typedef {import('http').IncomingMessage} IncomingMessage
+ * @typedef {import('@magic/error').CustomError} CustomError
  */
 
 // this middleware expects small chunks of data.
@@ -13,11 +15,14 @@ import log from '../log.js'
 /**
  * Parses request body, handling JSON and plain text
  * @param {IncomingMessage} req - HTTP request object
- * @returns {Promise<string|Object>} Parsed body as string or JSON object
+ * @returns {Promise<string | Object | CustomError>} Parsed body as string or JSON object
  */
-export const body = req =>
-  new Promise((resolve, reject) => {
+export const body = req => {
+  return new Promise((resolve, reject) => {
     try {
+      if (!req || !req.on) {
+        throw error('body middleware expects req to be set and of type IncomingMessage.')
+      }
       /** @type {Uint8Array<ArrayBufferLike>[]} */
       const bodyParts = []
 
@@ -44,6 +49,7 @@ export const body = req =>
 
       req.on('error', reject)
     } catch (e) {
-      return e
+      reject(/** @type {CustomError} */ (e))
     }
   })
+}

@@ -103,10 +103,9 @@ export default [
     expect: 'anything',
     info: 'rejects when stream emits error',
   },
-  /** this breaks @magic/test logging. */
-  // {
-  //   fn: tryCatch(body, { headers: null }),
-  //   expect: is.error,
-  //   info: 'handles synchronous errors in body function',
-  // },
+  {
+    fn: tryCatch(body, { headers: null }),
+    expect: is.error,
+    info: 'handles synchronous errors in body function',
+  },
 ]
