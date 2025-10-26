@@ -31,3 +31,6 @@ export { sendStream } from './lib/sendStream.js'
 export { body } from './middleware/body.js'
 export { clientError } from './middleware/clientError.js'
 export { listener } from './middleware/listener.js'
+
+export * as lib from './lib/index.js'
+export * as middleware from './middleware/index.js'
