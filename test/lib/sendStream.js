@@ -4,12 +4,10 @@ import { Writable } from 'node:stream'
 
 import { sendStream } from '../../src/lib/sendStream.js'
 
-// Create a test file for streaming
 const testDir = join(process.cwd(), 'test', '.sendstream-test-tmp')
 const testFile = join(testDir, 'test-stream.txt')
 const testContent = 'Hello World! This is test content for streaming.'
 
-// Setup
 const before = async () => {
   await fs.mkdirp(testDir)
   await fs.writeFile(testFile, testContent)
@@ -39,7 +37,7 @@ class MockResponse extends Writable {
     this.emit('finish')
   }
 
-  _write(chunk, encoding, callback) {
+  _write(_chunk, _encoding, callback) {
     callback()
   }
 
