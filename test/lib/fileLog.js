@@ -3,7 +3,7 @@ import { join } from 'node:path'
 
 import { fileLog } from '../../src/fileLog.js'
 
-const testDir = join(process.cwd(), 'test', '.fileLog-test-tmp', 'logs')
+const testDir = join(process.cwd(), 'test', '.fileLog-test-tmp')
 
 const before = async () => {
   await fs.mkdirp(testDir)
