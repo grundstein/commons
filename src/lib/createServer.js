@@ -8,6 +8,8 @@ import * as middleware from '../middleware/index.js'
 
 import { createSecureContext } from './createSecureContext.js'
 import { denyRequest } from './denyRequest.js'
+import { respond } from './respond.js'
+import { shouldServeFavicon, getFaviconContent } from './favicon.js'
 
 /**
  * @typedef {import('http').IncomingMessage} IncomingMessage
@@ -23,6 +25,7 @@ import { denyRequest } from './denyRequest.js'
  * @property {string} [host='localhost'] - Server host
  * @property {number} [port=2350] - Server port
  * @property {[number, number]} [startTime] - Server start time
+ * @property {string | false} [favicon] - name of the favicon file to serve. false to disable
  */
 
 /**
@@ -39,7 +42,13 @@ import { denyRequest } from './denyRequest.js'
  * @returns {Promise<Server|HttpsServer>} Created server instance
  */
 export const createServer = async (config, handler) => {
-  const { certDir, host = 'localhost', port = 2350, startTime = log.hrtime() } = config
+  const {
+    certDir,
+    host = 'localhost',
+    port = 2350,
+    startTime = log.hrtime(),
+    favicon = 'favicon.ico',
+  } = config
 
   /** @type {https.ServerOptions} */
   const options = {}
@@ -66,7 +75,8 @@ export const createServer = async (config, handler) => {
         connector = https
       }
     } catch (e) {
-      if (e && typeof e === 'object' && 'code' in e && e.code === 'ENOENT') {
+      const err = /** @type {import('@magic/error').CustomError} */ (e)
+      if (err?.code === 'ENOENT') {
         log.server.error(e)
       } else {
         throw e
@@ -74,12 +84,24 @@ export const createServer = async (config, handler) => {
     }
   }
 
+  const faviconContent = await getFaviconContent(favicon)
+
   /**
    * @param {IncomingMessage} req
    * @param {ServerResponse} res
    */
   const wrappedHandler = (req, res) => {
     if (denyRequest(req)) {
+      return
+    }
+
+    if (faviconContent && shouldServeFavicon({ url: req.url, favicon })) {
+      respond(req, res, {
+        ...faviconContent,
+        code: 200,
+        time: startTime,
+      })
+
       return
     }
 
