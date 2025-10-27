@@ -6,6 +6,8 @@ import { sendFile } from '../../src/lib/sendFile.js'
 
 import constants from '@magic/http1-constants'
 
+const { ACCEPT_ENCODING, CONTENT_ENCODING, CONTENT_TYPE } = constants.headers
+
 // Create a test file for sending
 const testDir = join(process.cwd(), 'test', '.sendFile-test-tmp')
 const testFile = join(testDir, 'test-sendfile.txt')
@@ -139,7 +141,7 @@ export default [
 
       sendFile(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_TYPE]
+      return res.headers[CONTENT_TYPE]
     },
     before,
     expect: 'text/html',
@@ -148,7 +150,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'gzip' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'gzip' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -167,7 +169,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'gzip' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'gzip' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -177,7 +179,7 @@ export default [
 
       sendFile(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_ENCODING]
+      return res.headers[CONTENT_ENCODING]
     },
     before,
     expect: 'gzip',
@@ -186,7 +188,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'br' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'br' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -205,7 +207,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'br' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'br' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -215,7 +217,7 @@ export default [
 
       sendFile(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_ENCODING]
+      return res.headers[CONTENT_ENCODING]
     },
     before,
     expect: 'br',
@@ -224,7 +226,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'deflate' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'deflate' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -243,7 +245,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'deflate' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'deflate' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -253,7 +255,7 @@ export default [
 
       sendFile(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_ENCODING]
+      return res.headers[CONTENT_ENCODING]
     },
     before,
     expect: 'deflate',
@@ -262,7 +264,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'gzip' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'gzip' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -281,7 +283,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'gzip' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'gzip' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -290,7 +292,7 @@ export default [
 
       sendFile(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_ENCODING]
+      return res.headers[CONTENT_ENCODING]
     },
     before,
     expect: 'identity',
@@ -361,7 +363,7 @@ export default [
 
   {
     fn: () => {
-      const req = createMockReq({ [constants.headers.ACCEPT_ENCODING]: 'gzip, deflate, br' })
+      const req = createMockReq({ [ACCEPT_ENCODING]: 'gzip, deflate, br' })
       const res = createMockRes()
       const file = {
         buffer: testBuffer,
@@ -374,7 +376,7 @@ export default [
       sendFile(req, res, { file })
 
       // Should prioritize br (brotli) based on getFileEncoding logic
-      return res.body.equals(testBrBuffer) && res.headers[constants.headers.CONTENT_ENCODING] === 'br'
+      return res.body.equals(testBrBuffer) && res.headers[CONTENT_ENCODING] === 'br'
     },
     before,
     expect: true,

@@ -1,9 +1,11 @@
 import { fs, is, tryCatch } from '@magic/test'
 import { join } from 'node:path'
 import { Writable } from 'node:stream'
-import constants from '@magic/http1-constants'
 
 import { sendStream } from '../../src/lib/sendStream.js'
+import constants from '@magic/http1-constants'
+
+const { RANGE, CONTENT_RANGE, CONTENT_TYPE } = constants.headers
 
 const testDir = join(process.cwd(), 'test', '.sendstream-test-tmp')
 const testFile = join(testDir, 'test-stream.txt')
@@ -107,7 +109,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: 'bytes=0-10' } }
+      const req = { headers: { [RANGE]: 'bytes=0-10' } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -126,7 +128,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: 'bytes=0-10' } }
+      const req = { headers: { [RANGE]: 'bytes=0-10' } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -136,7 +138,7 @@ export default [
 
       sendStream(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_RANGE] === `bytes 0-10/${testContent.length}`
+      return res.headers[CONTENT_RANGE] === `bytes 0-10/${testContent.length}`
     },
     before,
     expect: true,
@@ -145,7 +147,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: 'bytes=5-' } }
+      const req = { headers: { [RANGE]: 'bytes=5-' } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -156,7 +158,7 @@ export default [
       sendStream(req, res, { file })
 
       return (
-        res.headers[constants.headers.CONTENT_RANGE] === `bytes 5-${testContent.length - 1}/${testContent.length}`
+        res.headers[CONTENT_RANGE] === `bytes 5-${testContent.length - 1}/${testContent.length}`
       )
     },
     before,
@@ -166,7 +168,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: `bytes=${testContent.length + 100}-` } }
+      const req = { headers: { [RANGE]: `bytes=${testContent.length + 100}-` } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -185,7 +187,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: `bytes=${testContent.length + 100}-` } }
+      const req = { headers: { [RANGE]: `bytes=${testContent.length + 100}-` } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -204,7 +206,7 @@ export default [
 
   {
     fn: () => {
-      const req = { headers: { [constants.headers.RANGE]: `bytes=${testContent.length + 100}-` } }
+      const req = { headers: { [RANGE]: `bytes=${testContent.length + 100}-` } }
       const res = createMockRes()
       const file = {
         path: testFile,
@@ -214,7 +216,7 @@ export default [
 
       sendStream(req, res, { file })
 
-      return res.headers[constants.headers.CONTENT_TYPE] === 'text/plain'
+      return res.headers[CONTENT_TYPE] === 'text/plain'
     },
     before,
     expect: true,

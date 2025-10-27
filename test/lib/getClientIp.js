@@ -1,13 +1,15 @@
 import { getClientIp } from '../../src/lib/getClientIp.js'
 import constants from '@magic/http1-constants'
 
+const { X_FORWARDED_FOR } = constants.headers
+
 const validHeaders = {
-  [constants.headers.X_FORWARDED_FOR]: '1.2.3.4',
+  [X_FORWARDED_FOR]: '1.2.3.4',
 }
 const validHeaderResponse = '1.2.3.xxx'
 
 const validIpv6Headers = {
-  [constants.headers.X_FORWARDED_FOR]:'1:2ab3:4:5:6:7:8:9',
+  [X_FORWARDED_FOR]: '1:2ab3:4:5:6:7:8:9',
 }
 
 const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxxx'
