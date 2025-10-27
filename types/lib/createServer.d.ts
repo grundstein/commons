@@ -24,5 +24,9 @@ export type ServerConfig = {
    * - Server start time
    */
   startTime?: [number, number] | undefined
+  /**
+   * - name of the favicon file to serve. false to disable
+   */
+  favicon?: string | false | undefined
 }
 export type RequestHandler = (req: IncomingMessage, res: ServerResponse) => void
