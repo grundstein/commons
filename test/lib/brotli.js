@@ -1,5 +1,5 @@
 import { is, tryCatch } from '@magic/test'
-import { gzip, brotli } from '../../src/lib/compress.js'
+import { brotli } from '../../src/lib/compress.js'
 import zlib from 'node:zlib'
 import { promisify } from 'node:util'
 
