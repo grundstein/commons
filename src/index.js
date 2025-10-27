@@ -34,3 +34,7 @@ export { listener } from './middleware/listener.js'
 
 export * as lib from './lib/index.js'
 export * as middleware from './middleware/index.js'
+
+export * as compress from './lib/compress.js'
+export { gzip } from './lib/gzip.js'
+export { brotli } from './lib/brotli.js'

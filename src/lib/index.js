@@ -17,3 +17,7 @@ export { formatLog } from './formatLog.js'
 export { respond } from './respond.js'
 export { sendFile } from './sendFile.js'
 export { sendStream } from './sendStream.js'
+
+export { brotli } from './brotli.js'
+export { gzip } from './gzip.js'
+export * as compress from './compress.js'
