@@ -1,4 +1,4 @@
-import { is, tryCatch } from '@magic/test'
+import { is } from '@magic/test'
 import { shouldServeFavicon, getFaviconContent } from '../../src/lib/favicon.js'
 import fs from '@magic/fs'
 import constants from '@magic/http1-constants'
@@ -40,17 +40,17 @@ const mockFsWithFavicon =
 
 export default [
   {
-    fn: () => shouldServeFavicon('/favicon.ico', 'favicon.ico'),
+    fn: shouldServeFavicon({ url: '/favicon.ico', favicon: 'favicon.ico' }),
     expect: true,
     info: 'returns true when url matches favicon name',
   },
   {
-    fn: () => shouldServeFavicon('/favicon.ico', false),
+    fn: shouldServeFavicon({ url: '/favicon.ico', favicon: false }),
     expect: false,
     info: 'returns false when favicon is disabled',
   },
   {
-    fn: () => shouldServeFavicon('/other.ico', 'favicon.ico'),
+    fn: shouldServeFavicon({ url: '/other.ico', favicon: 'favicon.ico' }),
     expect: false,
     info: 'returns false when url does not match favicon',
   },
@@ -65,10 +65,7 @@ export default [
     info: 'returns undefined when favicon does not exist',
   },
   {
-    fn: async () => {
-      const result = await getFaviconContent(false)
-      return result
-    },
+    fn: getFaviconContent(false),
     expect: undefined,
     info: 'returns undefined when favicon disabled',
   },
