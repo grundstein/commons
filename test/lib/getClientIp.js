@@ -1,17 +1,13 @@
 import { getClientIp } from '../../src/lib/getClientIp.js'
+import constants from '@magic/http1-constants'
 
 const validHeaders = {
-  'x-forwarded-for': '1.2.3.4',
+  [constants.headers.X_FORWARDED_FOR]: '1.2.3.4',
 }
 const validHeaderResponse = '1.2.3.xxx'
 
-const validConnection = {
-  remoteAddress: '2.3.4.5',
-}
-const validConnectionResponse = '2.3.4.xxx'
-
 const validIpv6Headers = {
-  'x-forwarded-for': '1:2ab3:4:5:6:7:8:9',
+  [constants.headers.X_FORWARDED_FOR]:'1:2ab3:4:5:6:7:8:9',
 }
 
 const validIpv6HeaderResponse = '1:2ab3:4:5:6:7:8:xxxx'
@@ -53,7 +49,7 @@ export default [
   },
   {
     fn: getClientIp({ headers: validHeaders }, true),
-    expect: validHeaders['x-forwarded-for'],
+    expect: validHeaders[constants.headers.X_FORWARDED_FOR],
     info: 'calling with headers[x-forwarded-for] and full returns full ip.',
   },
   {
@@ -78,7 +74,7 @@ export default [
   },
   {
     fn: getClientIp({ headers: validIpv6Headers }, true),
-    expect: validIpv6Headers['x-forwarded-for'],
+    expect: validIpv6Headers[constants.headers.X_FORWARDED_FOR],
     info: 'calling with ipv6 ip and full returns full ip.',
   },
   {
