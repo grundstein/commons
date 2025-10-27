@@ -9,11 +9,12 @@ const { CONTENT_ENCODING, CONTENT_LENGTH, CONTENT_TYPE } = constants.headers
 
 /**
  *
- * @param {string} url
- * @param {string | false} favicon
+ * @param {object} args
+ * @param {string} [args.url]
+ * @param {string | false} [args.favicon]
  * @returns {boolean}
  */
-export const shouldServeFavicon = (url, favicon) => !!favicon && url === `/${favicon}`
+export const shouldServeFavicon = ({ url, favicon }) => !!url && !!favicon && url === `/${favicon}`
 
 /**
  *
