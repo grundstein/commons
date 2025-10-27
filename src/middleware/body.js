@@ -23,6 +23,7 @@ export const body = req => {
       if (!req || !req.on) {
         throw error('body middleware expects req to be set and of type IncomingMessage.')
       }
+
       /** @type {Uint8Array<ArrayBufferLike>[]} */
       const bodyParts = []
 
