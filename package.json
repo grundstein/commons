@@ -34,7 +34,7 @@
     "@magic/cli": "0.0.48",
     "@magic/error": "0.0.20",
     "@magic/fs": "0.0.35",
-    "@magic/http1-constants": "0.0.1",
+    "@magic/http1-constants": "0.0.2",
     "@magic/log": "0.1.20",
     "@magic/types": "0.1.29"
   },
