@@ -176,6 +176,11 @@ update dependencies
 
 update dependencies
 
-##### 0.0.12 - unreleased
+##### 0.0.12
+
+- big refactoring. add types, add tests.
+- update dependencies
+
+##### 0.0.13 - unreleased
 
 ...
