@@ -31,16 +31,16 @@
     "url": "https://github.com/grundstein/commons/issues"
   },
   "dependencies": {
-    "@magic/cli": "0.0.48",
-    "@magic/error": "0.0.20",
-    "@magic/fs": "0.0.35",
-    "@magic/http1-constants": "0.0.3",
-    "@magic/log": "0.1.20",
-    "@magic/types": "0.1.29"
+    "@magic/cli": "0.0.49",
+    "@magic/error": "0.0.21",
+    "@magic/fs": "0.0.37",
+    "@magic/http1-constants": "0.0.4",
+    "@magic/log": "0.1.21",
+    "@magic/types": "0.1.31"
   },
   "devDependencies": {
     "@magic/format": "0.0.68",
-    "@magic/test": "0.2.24",
+    "@magic/test": "0.2.26",
     "typescript": "5.9.3"
   },
   "keywords": [
